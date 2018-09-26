@@ -10,6 +10,8 @@ databaseChangeLog:
         - column:
             name: id
             type: int
+            -autoIncrement: true
+              startWith: 10
             constraints:
             - primaryKeyName: country_id_pk
             - primaryKey: true

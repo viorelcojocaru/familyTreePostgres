@@ -5,8 +5,8 @@ databaseChangeLog:
     comment: insert to the table person entry first time
     changes:
     - insert:
-        tableName: person
-        columns:
+          tableName: person
+          columns:
         - column:
             name: first_name
             value: Boba
@@ -20,5 +20,5 @@ databaseChangeLog:
             name: in_alive
             valueBoolean: true
         - column:
-              name: gender
-              value: 20
+            name: gender
+            value: 20
