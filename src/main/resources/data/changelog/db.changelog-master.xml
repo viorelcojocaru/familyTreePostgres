@@ -19,5 +19,9 @@
    <include file="data/changelog/db.changelog-0.0.10.yml"/>
    <include file="data/changelog/db.changelog-0.0.11.yml"/>
    <include file="data/changelog/db.changelog-0.0.12.yml"/>
+   <include file="data/changelog/db.changelog-0.0.13.yml"/>
+   <include file="data/changelog/db.changelog-0.0.14.yml"/>
+   <include file="data/changelog/db.changelog-0.0.15.yml"/>
+   <include file="data/changelog/db.changelog-0.0.16.yml"/>
 
 </databaseChangeLog>
