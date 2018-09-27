@@ -1,5 +1,6 @@
 package com.leroiv.familyTree.web;
 
+import com.leroiv.familyTree.repository.CountryRepository;
 import com.leroiv.familyTree.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +14,17 @@ public class PersonController {
     private static final String VIEW_PERSON = "person";
 
     @Autowired
-    PersonRepository repository;
+    private PersonRepository personRepo;
+
+    @Autowired
+    private CountryRepository countryRepo;
 
     @GetMapping(value = "person")
     public ModelAndView index(ModelAndView modelAndView) {
+
         modelAndView.setViewName(VIEW_PERSON);
-        modelAndView.addObject("person", repository.findAll());
+        modelAndView.addObject("persons", personRepo.findAll());
+        modelAndView.addObject("countrys", countryRepo.findAll());
         return modelAndView;
     }
 }

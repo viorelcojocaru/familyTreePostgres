@@ -13,7 +13,7 @@
 <div class="container">
     <h1>Family Tree</h1>
     <ul class="timeline">
-        <div th:each="entry,status : ${person}">
+        <div th:each="entry,status : ${persons}">
             <li th:attr="class=${status.odd}?'timeline-inverted':''">
                 <div class="tl-circ"></div>
                 <div class="timeline-panel">
@@ -23,6 +23,16 @@
                         <p>
                             <span th:text="${entry.birthDate}">born</span>
                         </p>
+                    </div>
+                </div>
+            </li>
+        </div>
+        <div th:each="entry,status : ${countrys}">
+            <li th:attr="class=${status.odd}?'timeline-inverted':''">
+                <div class="tl-circ"></div>
+                <div class="timeline-panel">
+                    <div class="tl-heading">
+                        <h4><span th:text="${entry.name}">First Name</span></h4>
                     </div>
                 </div>
             </li>

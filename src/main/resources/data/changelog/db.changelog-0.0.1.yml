@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1
+    id: 20180925100000
     author: familyTree
     comment: create table person first time
     changes:
@@ -9,8 +9,7 @@ databaseChangeLog:
         columns:
         - column:
             name: id
-            type: int
-            autoIncrement: true
+            type: BIGSERIAL
             constraints:
             - primaryKeyName: person_id_pk
             - primaryKey: true

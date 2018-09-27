@@ -22,7 +22,7 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
     @NonNull
-    private Long id;
+    private long id;
     @NonNull
     @Column(name = "first_name")
     private String firstName;

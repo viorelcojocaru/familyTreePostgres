@@ -1,17 +1,27 @@
 package com.leroiv.familyTree.domain;
+import lombok.*;
 
-//@Data
-//@NoArgsConstructor
-//@Entity(name = "familyTree")
-//@Table(name = "contact")
-public class Contact {//extends Base
-/*    @ManyToOne(targetEntity = Person.class)
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+
+@Data
+@NoArgsConstructor
+@Entity(name = "familyTree")
+@Table(name = "contact")
+public class Contact {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
+    private long id;
+
+    @ManyToOne(targetEntity = Person.class)
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person personId;
     @Email
     private String email;
     @Column(name = "web_site")
     private String webSite;
+    @Column(name = "face_book")
     private String faceBook;
     private String blog;
     @Column(name = "photo_galery")
@@ -19,8 +29,8 @@ public class Contact {//extends Base
     private String skype;
     private String city;
     @ManyToOne(targetEntity = Country.class)
-    @JoinColumn(name = "country_Id", referencedColumnName = "id")
+    @JoinColumn(name = "country_id", referencedColumnName = "id")
     private Country countryId;
-    private String other;*/
+    private String other;
 
 }

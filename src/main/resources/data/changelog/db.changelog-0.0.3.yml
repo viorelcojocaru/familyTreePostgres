@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 3
+    id: 20180925120000
     author: familytree
     comment: create Table country
     changes:
@@ -10,8 +10,7 @@ databaseChangeLog:
         - column:
             name: id
             type: int
-            -autoIncrement: true
-              startWith: 10
+            autoIncrement: true
             constraints:
             - primaryKeyName: country_id_pk
             - primaryKey: true

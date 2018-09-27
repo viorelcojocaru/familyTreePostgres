@@ -1,9 +1,11 @@
 package com.leroiv.familyTree.domain;
 
-/*@Entity(name = "familyTree")
-@Table(name = "appAccountType")*/
+import javax.persistence.*;
+
+@Entity(name = "familyTree")
+@Table(name = "app_account_type")
 public enum AppAccountType {
- /*MARRIED(10, "MARRIED"),
+ MARRIED(10, "MARRIED"),
     ENGAGED(11, "ENGAGED"),
     RELATIONSHIP(12, "RELATIONSHIP"),
     SEPARATED(13, "SEPARATED"),
@@ -32,5 +34,5 @@ public enum AppAccountType {
 
     public void setName(String name) {
         this.name = name;
-    }*/
+    }
 }

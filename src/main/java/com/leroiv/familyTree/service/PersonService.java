@@ -1,5 +1,6 @@
-package com.leroiv.familyTree.domain;
+package com.leroiv.familyTree.service;
 
+import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
