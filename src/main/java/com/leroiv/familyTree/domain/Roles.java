@@ -1,24 +1,25 @@
 package com.leroiv.familyTree.domain;
 
-import javax.persistence.*;
+import lombok.Data;
 
-@Entity(name = "familyTree")
-@Table(name = "app_account_type")
-public enum AppAccountType {
-    MARRIED(10, "MARRIED"),
-    ENGAGED(11, "ENGAGED"),
-    RELATIONSHIP(12, "RELATIONSHIP"),
-    SEPARATED(13, "SEPARATED"),
-    DIVORCET(14, "DIVORCET"),
-    ANULLED(15, "ANULLED");
-    private String name;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+public enum Roles {
+    ADMIN(10,"ADMIN"),
+    USER(20,"USER");
+
+     Roles(int id, String name) {
+        this.id = id;
+        this.name=name;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id",unique = true )
     private int id;
-
-    AppAccountType(int id, String name) {
-    }
+    private String name;
 
     public int getId() {
         return id;
