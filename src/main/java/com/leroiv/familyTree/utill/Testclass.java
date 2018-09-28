@@ -11,13 +11,14 @@ public class Testclass {
 //   @Autowired
 //    private static RoleRepository roleRepository;
 
-//    @Autowired
-//    static BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     public static void main(String[] args) {
-//        System.out.println("admin: "+bCryptPasswordEncoder.encode("admin"));
-//        System.out.println("user: "+bCryptPasswordEncoder.encode("user"));
-//        System.out.println("guest: "+bCryptPasswordEncoder.encode("guest"));
+
+        /* BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        System.out.println("admin: "+bCryptPasswordEncoder.encode("admin"));
+        System.out.println("user: "+bCryptPasswordEncoder.encode("user"));
+        System.out.println("guest: "+bCryptPasswordEncoder.encode("guest"));*/
         /*List<String> roles = new ArrayList<>();
         roleRepository.findAll().forEach(role -> roles.add(role.getName()));
         System.out.println((String[]) roles.toArray());*/

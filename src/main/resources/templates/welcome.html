@@ -4,32 +4,39 @@ extras/spring-security">
 <head>
     <meta charset="utf-8"></meta>
     <meta http-equiv="Content-Type" content="text/html"></meta>
-    <title>Spring Boot Journal</title>
-    <!--  <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css"></link>
-      <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap-glyphicons.css"></link>
-      <link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>-->
+    <title>Welcome</title>
+
 </head>
 
 <body>
 <div class="container">
-    <h1>Spring Boot Journal</h1>
+    <h1>Family Tree welcome page</h1>
     <p sec:authorize="isAuthenticated()">
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
     </p>
     <ul class="timeline">
-        <div th:each="entry,status : ${person}">
+        <div th:each="entry,status : ${persons}">
             <li th:attr="class=${status.odd}?'timeline-inverted':''">
                 <div class="tl-circ"></div>
                 <div class="timeline-panel">
                     <div class="tl-heading">
-                        <h4><span th:text="${entry.getFirstName()}">First Name</span>
-                            <span th:text="${entry.getLastName()}">Last Name Now</span></h4>
+                        <h4><span th:text="${entry.firstName}">First Name</span>
+                            <span th:text="${entry.lastName}">Last Name Now</span></h4>
                         <p>
-                            <small class="text-muted"><i class="glyphicon glyphicon-time"></i> <span
-                                    th:text="${entry.getBirthDate()}">born</span></small>
+                            <span th:text="${entry.birthDate}">born</span>
                         </p>
+                    </div>
+                </div>
+            </li>
+        </div>
+        <div th:each="entry,status : ${countrys}">
+            <li th:attr="class=${status.odd}?'timeline-inverted':''">
+                <div class="tl-circ"></div>
+                <div class="timeline-panel">
+                    <div class="tl-heading">
+                        <h4><span th:text="${entry.name}">First Name</span></h4>
                     </div>
                 </div>
             </li>
