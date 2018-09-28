@@ -1,4 +1,4 @@
-package com.leroiv.familyTree.contants;
+package com.leroiv.familyTree.constants;
 
 public class AppAcountTypes {
     private final static int    MARRIED=10,

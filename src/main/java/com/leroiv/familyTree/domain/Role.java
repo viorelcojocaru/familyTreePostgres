@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @ToString
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "role")
 public class Role {
@@ -24,5 +25,7 @@ public class Role {
     @Column(name = "id", unique = true)
     private int id;
     private String name;
+    @ManyToMany(mappedBy = "role")
+    private Set<User> users;
 
 }

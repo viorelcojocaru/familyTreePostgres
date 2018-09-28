@@ -6,13 +6,11 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table
+@Table(name = "user_to_person")
 public class UserToPerson {
     @Id
-//    @OneToOne(targetEntity = User.class)
     @Column(name = "user_id", unique = true, nullable = false)
     private long userId;
-//    @OneToOne(targetEntity = Person.class)
     @Column(name = "person_id", unique = true, nullable = false)
     private long personId;
 }

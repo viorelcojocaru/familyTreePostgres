@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@Table
+@Table(name = "user_to_role")
 public class UserToRole {
     @Id
     @Column(name = "user_id", unique = true, nullable = false)
