@@ -1,5 +1,6 @@
 package com.leroiv.familyTree.config;
 
+import com.leroiv.familyTree.domain.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 //import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -42,10 +44,12 @@ public class JdbcSecurityConfiguration extends GlobalAuthenticationConfigurerAda
                 rs.getBoolean("ENABLED"),
                 rs.getBoolean("ENABLED"),
                 rs.getBoolean("ENABLED"),
-                AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN"));
+                AuthorityUtils.createAuthorityList("USER", Roles.ADMIN.getName()));
 
 
         return user;
     }
+
+
 
 }

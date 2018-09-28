@@ -2,6 +2,7 @@ package com.leroiv.familyTree.domain;
 
 import lombok.Data;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 
 @Data
@@ -14,4 +15,7 @@ public class User {
     private long id;
     private String login;
     private String password;
+    @ManyToOne(targetEntity = Role.class)
+    private Role role;
+
 }

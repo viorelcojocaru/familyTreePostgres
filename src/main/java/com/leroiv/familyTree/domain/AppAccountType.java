@@ -4,13 +4,8 @@ import javax.persistence.*;
 
 @Entity(name = "familyTree")
 @Table(name = "app_account_type")
-public enum AppAccountType {
-    MARRIED(10, "MARRIED"),
-    ENGAGED(11, "ENGAGED"),
-    RELATIONSHIP(12, "RELATIONSHIP"),
-    SEPARATED(13, "SEPARATED"),
-    DIVORCET(14, "DIVORCET"),
-    ANULLED(15, "ANULLED");
+public class AppAccountType {
+
     private String name;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

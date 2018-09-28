@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table
-
 public class UserToPerson {
     @Id
 //    @OneToOne(targetEntity = User.class)
