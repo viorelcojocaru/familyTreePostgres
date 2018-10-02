@@ -11,16 +11,18 @@ css"></link>
 </head>
 <body>
 <div class="container">
+    <h1>Family Tree Admin page</h1>
+    <p sec:authorize="isAuthenticated()">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
+    </p>
     <div class="content">
         <p th:if="${param.logout}" class="alert">You have been logged out</p>
         <p th:if="${param.error}" class="alert alert-error">There was an error, please
             try again</p>
-        <h2>Login to Spring Boot Journal</h2>
-        <form name="form" th:action="@{/login}" action="/login" method="POST" >
-            <input type="text" name="username" value="login" placeholder="Username" />
-            <input type="password" name="password"  value="password" placeholder="Password" />
-            <input type="submit" id="login" value="Login" class="btn btn-primary" />
-        </form>
+        <h2>welcome Admin role page</h2>
+
     </div>
 </div>
 </body>

@@ -14,9 +14,9 @@ css"></link>
         <p th:if="${param.logout}" class="alert">You have been logged out</p>
         <p th:if="${param.error}" class="alert alert-error">There was an error, please
             try again</p>
-        <h2>Login to Spring Boot Journal</h2>
-        <form name="form" th:action="@{/login}" action="/login" method="POST" >
-            <input type="text" name="username" value="login" placeholder="Username" />
+        <h2>Login to familyTree</h2>
+        <form name="userform" th:action="@{/login}" action="/login" method="POST" >
+            <input type="text" name="username" value="username" placeholder="Username" />
             <input type="password" name="password"  value="password" placeholder="Password" />
             <input type="submit" id="login" value="Login" class="btn btn-primary" />
         </form>

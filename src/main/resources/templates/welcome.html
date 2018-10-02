@@ -11,11 +11,14 @@ extras/spring-security">
 <body>
 <div class="container">
     <h1>Family Tree welcome page</h1>
+    <!-- <strong th:value="${currentPerson.firstName}"></strong>
+        <strong th:value="${currentPerson.lastName}"></strong>-->
     <p sec:authorize="isAuthenticated()">
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>
     </form>
     </p>
+
     <ul class="timeline">
         <div th:each="entry,status : ${persons}">
             <li th:attr="class=${status.odd}?'timeline-inverted':''">

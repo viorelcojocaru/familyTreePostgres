@@ -1,72 +1,71 @@
 package com.leroiv.familyTree.web;
 
 import com.leroiv.familyTree.domain.User;
-import com.leroiv.familyTree.service.user.UserService;
-import com.leroiv.familyTree.service.user.intf.SequrityService;
-import com.leroiv.familyTree.validator.impl.UserValidator;
+import com.leroiv.familyTree.repository.CountryRepository;
+import com.leroiv.familyTree.repository.PersonRepository;
+import com.leroiv.familyTree.repository.UserRepository;
+import com.leroiv.familyTree.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
  * @author viorel cojocaru
  * @Version 1.0
  * */
 
-@Controller
+@RestController
 @RequestMapping("/")
 public class UserController {
-    public static final String VIEW_REGISTRATION = "registration";
-    public static final String WIEW_WELCOME = "/welcome";
-    public static final String WIEW_LOGIN = "login";
-    public static final String WIEW_ADMIN = "admin";
+    public static final String VIEW_REGISTRATION = "/registration";
+    public static final String VIEW_WELCOME = "/welcome";
+    public static final String VIEW_LOGIN = "/login";
+    public static final String VIEW_ADMIN = "/admin";
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    SequrityService sequrityService;
-    @Autowired
-    UserValidator userValidator;
+    public UserController() {
+    }
 
     @GetMapping(value = VIEW_REGISTRATION)
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-        return "registration";
+    public String registration(ModelAndView model) {
+        model.addObject("userForm" ,new User());
+        return VIEW_REGISTRATION;
     }
+    @Autowired
+    private  UserRepository userRepository;
 
-    @PostMapping(value = VIEW_REGISTRATION)
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        userValidator.validate(userForm, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return VIEW_REGISTRATION;
-        }
-        userService.save(userForm);
-        sequrityService.autoLogin(userForm.getLogin(), userForm.getConfirmPassword());
-        return WIEW_WELCOME;
-    }
+    @Autowired
+    private PersonRepository personRepo;
 
-    @GetMapping(value = WIEW_LOGIN)
-    public String login(Model model, String error, String logout) {
-        if (error != null) {
-            model.addAttribute("error", "login  or password is incorrect");
-        }
-        if (logout != null) {
-            model.addAttribute("message", "logout  successfully");
-        }
-        return WIEW_LOGIN;
+    @Autowired
+    private CountryRepository countryRepo;
+
+    private  User user;
+    private PersonService personService;
+    @GetMapping(value = VIEW_WELCOME)
+    public ModelAndView welcome(ModelAndView modelAndView) {
+
+        modelAndView.setViewName(VIEW_WELCOME);
+//        modelAndView.addObject("currentPerson", userRepository.findOneWithPersonByUserName(user.getUserName()));
+        modelAndView.addObject("persons", personRepo.findAll());
+        modelAndView.addObject("countrys", countryRepo.findAll());
+        return modelAndView;
     }
-    @GetMapping(value =  WIEW_WELCOME)
-    public String welcome(Model model) {
-        return WIEW_LOGIN;
+    @GetMapping(value=VIEW_LOGIN)
+    public ModelAndView login(ModelAndView modelAndView){
+        //, @AuthenticationPrincipal User user
+        this.user=user;
+        modelAndView.setViewName(VIEW_LOGIN);
+        return modelAndView;
     }
-    @GetMapping(value =  WIEW_ADMIN)
-    public String admin(Model model) {
-        return WIEW_ADMIN;
+    @GetMapping(value = VIEW_ADMIN)
+    public ModelAndView admin(ModelAndView modelAndView){
+        modelAndView.setViewName(VIEW_ADMIN);
+
+        return modelAndView;
     }
 
 }

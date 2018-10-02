@@ -8,7 +8,7 @@ databaseChangeLog:
         tableName: user
         columns:
         - column:
-            name: login
+            name: user_name
             value: admin
         - column:
               name: password
@@ -22,7 +22,7 @@ databaseChangeLog:
         tableName: user
         columns:
         - column:
-            name: login
+            name: user_name
             value: user
         - column:
             name: password

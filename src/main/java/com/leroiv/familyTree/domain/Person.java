@@ -12,7 +12,6 @@ import java.util.Date;
 
 @Data
 @ToString
-@NoArgsConstructor
 @Entity
 @Table(name = "person")
 public class Person {
@@ -21,7 +20,6 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @NonNull
     private long id;
     @NonNull
     @Column(name = "first_name")
@@ -49,6 +47,5 @@ public class Person {
         this.gender = gender;
         this.birthDate = simpleDateformat.parse(birthDate);
     }
-
 
 }

@@ -16,14 +16,14 @@ import java.util.List;
 
 @SpringBootApplication
 public class FamilyTreeApplication {
-	private static final Logger log = LoggerFactory.getLogger(FamilyTreeApplication.class);
+//	private static final Logger log = LoggerFactory.getLogger(FamilyTreeApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(FamilyTreeApplication.class, args);
 	}
+	/*@Autowired
+    PersonService personService;
 	@Autowired
-	PersonService personService;
-	@Autowired
-	CountryService countryService;
+    CountryService countryService;
 
 
 	@Autowired
@@ -34,13 +34,13 @@ public class FamilyTreeApplication {
 	CommandLineRunner start(PersonService service) {
 		return args -> {
 			log.info("@@ findAll() call...");
-			service.findAll().forEach(entry -> log.info(entry.toString()));
-			countryService.findAll().forEach(entry ->log.info(entry.toString()));
+			service.listAll().forEach(entry -> log.info(entry.toString()));
+		//	countryService.findAll().forEach(entry ->log.info(entry.toString()));
 			log.info("@@ findAll() call...Rolles");
 			List<String> roles = new ArrayList<>();
 			roleRepository.findAll().forEach(role -> roles.add(role.getName()));
 			roles.forEach(role-> log.info(role));
 
 		};
-	}
+	}*/
 }

@@ -6,14 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Set;
 
 @Data
 @ToString
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "role", schema = "public")
+public class Role implements Serializable {
 
     Role(int id, String name) {
         this.id = id;
@@ -25,7 +26,6 @@ public class Role {
     @Column(name = "id", unique = true)
     private int id;
     private String name;
-    @ManyToMany(mappedBy = "role")
-    private Set<User> users;
+
 
 }

@@ -26,4 +26,5 @@
    <include file="data/changelog/db.changelog-0.0.17.yml"/>
    <include file="data/changelog/db.changelog-0.0.18.yml"/>
 
+
 </databaseChangeLog>

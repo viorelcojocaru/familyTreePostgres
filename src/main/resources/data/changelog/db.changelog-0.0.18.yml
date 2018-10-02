@@ -8,7 +8,7 @@ databaseChangeLog:
         tableName: user
         columns:
         - column:
-            name: login
+            name: user_name
             value: guest
         - column:
               name: password
