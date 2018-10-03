@@ -10,9 +10,13 @@ extras/spring-security">
 
 <body>
 <div class="container">
-    <h1>Family Tree welcome page</h1>
-    <!-- <strong th:value="${currentPerson.firstName}"></strong>
-        <strong th:value="${currentPerson.lastName}"></strong>-->
+    <h3>Family Tree welcome page</h3>
+    <h2>
+        <p>
+            <span th:text="${loggedPerson.firstName}"></span>
+            <span th:text="${loggedPerson.lastName}"></span>
+        </p>
+    </h2>
     <p sec:authorize="isAuthenticated()">
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out"/>

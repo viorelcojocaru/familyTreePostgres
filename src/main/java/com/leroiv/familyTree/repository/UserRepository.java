@@ -1,6 +1,5 @@
 package com.leroiv.familyTree.repository;
 
-import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,8 +9,9 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-//    @EntityGraph(attributePaths = "person")
-//    public Optional<Person> findOneWithPersonByUserName(String username);
+
+    @EntityGraph(attributePaths = "loggedPerson")
+    public Optional<User> findOneWithPersonByUserName(String userName);
 
     @EntityGraph(attributePaths = "roles")
     public Optional<User> findOneWithRoleByUserName(String userName);
@@ -20,4 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findCurretUser();
 
     User findUserByUserName(String username);
+
+    User save(User user);
+
+
 }

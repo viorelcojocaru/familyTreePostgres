@@ -11,30 +11,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Profile("springdatajpa")
+
 public class PersonService implements PersonServiceIntf {
     @Autowired
-    private PersonRepository repository;
+    private PersonRepository personRepository;
 
+    @Autowired
+    private UserService userService;
     @Override
     public List<?> listAll() {
         List<Person> persons=new ArrayList<>();
-        repository.findAll().forEach(persons::add);
+        personRepository.findAll().forEach(persons::add);
         return persons;
     }
 
     @Override
     public Person getById(Long id) {
-        return repository.findById(id).get();
+        return personRepository.findById(id).get();
     }
 
     @Override
     public Person saveOrUpdate(Person person) {
-        return repository.save(person);
+        return personRepository.save(person);
     }
 
     @Override
     public void delete(Long id) {
-        repository.deleteById(id);
+        personRepository.deleteById(id);
     }
+
+   /* public Person getLoggedPersonByUserName(String userName){
+
+        return personRepository.findOneWithPersonByUserName(userName);
+    }*/
 }

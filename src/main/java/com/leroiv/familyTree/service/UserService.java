@@ -1,8 +1,12 @@
 package com.leroiv.familyTree.service;
 
+import com.leroiv.familyTree.constants.Roles;
+import com.leroiv.familyTree.domain.Role;
 import com.leroiv.familyTree.domain.User;
+import com.leroiv.familyTree.repository.RoleRepository;
 import com.leroiv.familyTree.repository.UserRepository;
 import com.leroiv.familyTree.service.intf.UserServiceIntf;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +16,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
-@Profile("springdatajpa")
-public class UserService implements UserServiceIntf{
+@AllArgsConstructor
+public class UserService implements UserServiceIntf {
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    private final RoleRepository roleRepository;
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Override
     public List<User> listAll() {
@@ -37,11 +44,14 @@ public class UserService implements UserServiceIntf{
         return userRepository.findById(id).get();
     }
 
-     @Override
+    @Override
     public User saveOrUpdate(User user) {
-        if(user.getPassword() != null){
+        if (user.getPassword() != null) {
             user.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setPassword(user.getEncryptedPassword());
         }
+        Role role =roleRepository.findById(new Long(Roles.USER)).get();
+        user.addRole(role);
         return userRepository.save(user);
     }
 
@@ -51,10 +61,8 @@ public class UserService implements UserServiceIntf{
         userRepository.deleteById(id);
     }
 
-    @Override
-    public User findByUserName(String username) {
-        return userRepository.findUserByUserName(username);
+    public User findUserByUserName(String userName) {
+        return userRepository.findUserByUserName(userName);
     }
-
 
 }

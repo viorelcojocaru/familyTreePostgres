@@ -9,6 +9,8 @@ import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @ToString
@@ -47,5 +49,16 @@ public class Person {
         this.gender = gender;
         this.birthDate = simpleDateformat.parse(birthDate);
     }
+
+    public Person() {
+    }
+
+
+
+   /* @OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "person_to_user" ,
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Person persons = new Person();*/
 
 }

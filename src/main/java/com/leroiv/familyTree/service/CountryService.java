@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Profile("springdatajpa")
+
 public class CountryService implements CountryServiceIntf {
     @Autowired
     private CountryRepository repository;

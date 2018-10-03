@@ -18,10 +18,10 @@ css"></link>
     </form>
     </p>
     <div class="content">
-        <p th:if="${param.logout}" class="alert">You have been logged out</p>
+        <p th:if="${param.logout}" class="alert">You have been logged out</p>s
         <p th:if="${param.error}" class="alert alert-error">There was an error, please
             try again</p>
-        <h2>welcome Admin role page</h2>
+       <h2>welcome Admin role page <span th:text="${admin.firstName}"/><span th:text="${admin.lastName}"/></h2>
 
     </div>
 </div>

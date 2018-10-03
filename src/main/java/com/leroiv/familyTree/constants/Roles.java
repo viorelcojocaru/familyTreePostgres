@@ -20,9 +20,10 @@ public class Roles {
 //        return roles.stream().filter(role->role.getId()==roleId)
 //                .map(role -> role.getName()).collect(Collectors.joining(""));
 //    }
-    public static String getRoleName( int roleId) {
+
+    /*public static String getRoleName( int roleId) {
        roleRepository.findAll().forEach(role-> roles.add(role));
         return roles.stream().filter(role -> role.getId()==roleId).findAny()
                 .orElse(null).getName();
-    }
+    }*/
 }
