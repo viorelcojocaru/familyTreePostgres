@@ -6,7 +6,6 @@ import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
 import com.leroiv.familyTree.repository.CountryRepository;
 import com.leroiv.familyTree.repository.PersonRepository;
-import com.leroiv.familyTree.repository.UserRepository;
 import com.leroiv.familyTree.service.PersonService;
 import com.leroiv.familyTree.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Optional;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
  * @author viorel cojocaru
@@ -30,9 +28,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/")
 public class UserController {
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private PersonRepository personRepo;
@@ -50,9 +45,8 @@ public class UserController {
     }
 
 
-    @GetMapping(Pages.VIEW_LOGIN)
+    @GetMapping("/login")
     public ModelAndView login(ModelAndView modelAndView) {
-
         modelAndView.setViewName("login");
         return modelAndView;
     }
@@ -60,7 +54,7 @@ public class UserController {
     @GetMapping("/admin")
     public ModelAndView admin(ModelAndView modelAndView) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User loggedUser = userRepository.findOneWithPersonByUserName(auth.getName()).get();
+        User loggedUser = userService.findUserByUserName(auth.getName());
         Person person = loggedUser.getUserToPerson();
         if (loggedUser.getRoles().stream().anyMatch(role -> role.getId()==Roles.ADMIN)) {
             modelAndView.addObject("admin", person);
@@ -80,7 +74,7 @@ public class UserController {
 
     @PostMapping(Pages.VIEW_REGISTRATION)
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult, ModelAndView modelAndView) {
-        User userExists = userRepository.findUserByUserName(user.getUserName());
+        User userExists = userService.findUserByUserName(user.getUserName());
         if (userExists != null) {
             bindingResult
                     .rejectValue("error.user",
