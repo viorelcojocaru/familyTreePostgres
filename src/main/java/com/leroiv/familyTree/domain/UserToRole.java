@@ -3,10 +3,7 @@ package com.leroiv.familyTree.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -15,8 +12,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class UserToRole implements Serializable {
     @Id
-    @Column(name = "user_id", unique = true, nullable = false)
-    private long userId;
-    @Column(name = "role_id", unique = true, nullable = false)
-    private long roleId;
+    @Column(name = "user_id")
+    private Long userId;
+    @Column(name = "role_id")
+    private Long roleId;
 }

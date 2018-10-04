@@ -8,18 +8,18 @@ public class AppAccountType {
 
     private String name;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",unique = true )
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
     AppAccountType(int id, String name) {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

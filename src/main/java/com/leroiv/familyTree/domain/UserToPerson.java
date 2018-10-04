@@ -12,8 +12,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class UserToPerson implements Serializable {
     @Id
-    @Column(name = "user_id", unique = true, nullable = false)
-    private long userId;
-    @Column(name = "person_id", unique = true, nullable = false)
-    private long personId;
+    @Column(name = "user_id")
+    private Long userId;
+    @Column(name = "person_id")
+    private Long personId;
 }

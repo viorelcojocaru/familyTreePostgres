@@ -12,9 +12,9 @@ import java.util.Date;
 @Table(name = "relation")
 public class Relation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",unique = true )
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     @ManyToOne(targetEntity = AppAccount.class)
     @JoinColumn(name = "from_app_account_id", referencedColumnName = "id")
     private AppAccount fromAppAccountId;

@@ -20,9 +20,9 @@ public class Person {
     @Transient
     private final SimpleDateFormat simpleDateformat = new SimpleDateFormat("yyyy-MM-dd");
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
     @NonNull
     @Column(name = "first_name")
     private String firstName;

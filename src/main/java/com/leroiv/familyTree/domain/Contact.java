@@ -10,9 +10,9 @@ import javax.validation.constraints.Email;
 @Table(name = "contact")
 public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
     @ManyToOne(targetEntity = Person.class)
     @JoinColumn(name = "person_id", referencedColumnName = "id")

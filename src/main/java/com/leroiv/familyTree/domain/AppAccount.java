@@ -14,9 +14,9 @@ import javax.persistence.*;
 @Table(name = "app_Account")
 public class AppAccount {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",unique = true )
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id" )
+    private Long id;
     @ManyToOne(targetEntity = Person.class)
     @JoinColumn(name = "person_Id", referencedColumnName = "id" )
 

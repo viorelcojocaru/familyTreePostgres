@@ -87,13 +87,10 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
-
             userService.saveOrUpdate(user);
-
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
-
-            return welcome(new ModelAndView());
+//            modelAndView.addObject("user", new User());
+            return login(new ModelAndView());
         }
         return modelAndView;
     }
@@ -105,7 +102,7 @@ public class UserController {
     public ModelAndView welcome(ModelAndView modelAndView) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         modelAndView.setViewName("welcome");
-        User loggedUser = userRepository.findOneWithPersonByUserName(auth.getName()).get();
+        User loggedUser = userService.findUserByUserName(auth.getName());
         Person person = loggedUser.getLoggedPerson();
         modelAndView.addObject("loggedPerson", person);
         modelAndView.addObject("persons", personRepo.findAll());

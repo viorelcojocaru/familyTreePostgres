@@ -12,8 +12,7 @@ import java.io.Serializable;
 @Table(name = "role", schema = "public")
 public class Role implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
