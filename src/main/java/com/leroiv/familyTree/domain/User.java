@@ -2,6 +2,7 @@ package com.leroiv.familyTree.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,11 +12,10 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "user" , schema = "public")
-//@Builder
+@Builder
+@NoArgsConstructor
 public class User implements Serializable {
-    public User(){
 
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id",unique = true )

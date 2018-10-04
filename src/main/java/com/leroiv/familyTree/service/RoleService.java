@@ -25,7 +25,7 @@ public class RoleService implements RoleServiceIntf {
 
     @Override
     public Role getById(Long id) {
-        return roleRepository.findById(id).get();
+        return roleRepository.getOne(id);
     }
 
     @Override

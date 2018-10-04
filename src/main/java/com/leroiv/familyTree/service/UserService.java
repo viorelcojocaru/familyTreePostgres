@@ -41,16 +41,17 @@ public class UserService implements UserServiceIntf {
 
     @Override
     public User getById(Long id) {
-        return userRepository.findById(id).get();
+        return userRepository.getOne(id);
     }
 
     @Override
+    @Transactional
     public User saveOrUpdate(User user) {
         if (user.getPassword() != null) {
             user.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setPassword(user.getEncryptedPassword());
         }
-        Role role =roleRepository.findById(new Long(Roles.USER)).get();
+        Role role =roleRepository.getOne((long)Roles.USER);
         user.addRole(role);
         return userRepository.save(user);
     }

@@ -1,6 +1,7 @@
 package com.leroiv.familyTree.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Data
 @Entity
 @Table(name = "user_to_role")
+@NoArgsConstructor
 public class UserToRole {
     @Id
     @Column(name = "user_id", unique = true, nullable = false)
