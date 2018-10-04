@@ -89,7 +89,7 @@ public class UserController {
         } else {
 
             userService.saveOrUpdate(user);
-            userRepository.save(user);
+
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("user", new User());
 

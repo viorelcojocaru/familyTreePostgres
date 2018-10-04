@@ -12,8 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "user" , schema = "public")
-@Builder
-@NoArgsConstructor
+
 public class User implements Serializable {
 
     @Id
@@ -39,6 +38,7 @@ public class User implements Serializable {
     @Transient
     private Integer failedLoginAttempts = 0;
 
+    @Transient
     @OneToOne
     @JoinTable(name = "person_to_user",
             joinColumns = {
@@ -50,13 +50,6 @@ public class User implements Serializable {
     )
     private Person loggedPerson;
 
-    public Person getLoggedPerson() {
-        return loggedPerson;
-    }
-
-    public void setLoggedPerson(Person loggedPerson) {
-        this.loggedPerson = loggedPerson;
-    }
 
     public void addRole(Role role){
         if(!this.roles.contains(role)){

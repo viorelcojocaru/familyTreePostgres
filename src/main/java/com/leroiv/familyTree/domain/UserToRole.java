@@ -7,12 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Data
 @Entity
 @Table(name = "user_to_role")
 @NoArgsConstructor
-public class UserToRole {
+public class UserToRole implements Serializable {
     @Id
     @Column(name = "user_id", unique = true, nullable = false)
     private long userId;

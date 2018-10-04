@@ -9,15 +9,11 @@ import com.leroiv.familyTree.service.intf.UserServiceIntf;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -51,7 +47,7 @@ public class UserService implements UserServiceIntf {
             user.setEncryptedPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             user.setPassword(user.getEncryptedPassword());
         }
-        Role role =roleRepository.getOne((long)Roles.USER);
+        Role role = roleRepository.getOne((long)Roles.USER);
         user.addRole(role);
         return userRepository.save(user);
     }
