@@ -1,5 +1,6 @@
 package com.leroiv.familyTree.web;
 
+import com.leroiv.familyTree.constants.Genders;
 import com.leroiv.familyTree.constants.Pages;
 import com.leroiv.familyTree.constants.Roles;
 import com.leroiv.familyTree.domain.Person;
@@ -12,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -97,12 +95,21 @@ public class UserController {
         modelAndView.setViewName("welcome");
         User user = userService.findUserByUserName(auth.getName());
         Person person = user.getUserToPerson();
+
+        modelAndView.addObject("genders", Genders.values());
+
         modelAndView.addObject("person", person);
         modelAndView.addObject("persons", personRepo.findAll());
         modelAndView.addObject("countrys", countryRepo.findAll());
 
         return modelAndView;
     }
+//    @ModelAttribute("allGenders")
+//    private String[] getAllGenders() {
+//        return new String[] {
+//                "Female", "Male"
+//        };
+//    }
 
 
 }

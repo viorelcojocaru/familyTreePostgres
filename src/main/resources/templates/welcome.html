@@ -4,51 +4,134 @@ extras/spring-security">
 <head>
     <meta charset="utf-8"></meta>
     <meta http-equiv="Content-Type" content="text/html"></meta>
+    <link rel="stylesheet" type="text/css" href="familyTreestyles.css">
     <title>Welcome</title>
 
 </head>
 
 <body>
 <div class="container">
-    <h3>Family Tree welcome page</h3>
-    <h2>
-        <p>
-            <span th:text="${person.firstName}"></span>
-            <span th:text="${person.lastName}"></span>
-        </p>
-    </h2>
-    <p sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
-    </p>
+    <table class="continer">
+        <tbody>
+        <tr class="header">
+            <td>
+                <div class="header-panel">
+                    <h3>Family Tree welcome page</h3></div>
+                <h2>
+                    <p>
+                        <span th:text="${person.firstName}"></span>
+                        <span th:text="${person.lastName}"></span>
+                    </p>
+                </h2>
+            </td>
+            <td>
+                <p sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Sign Out"/>
+                </form>
+            </td>
+        </tr>
+        <tr class="right_tr">
+            <td> <div class="right_side">
+                <div>
+                    <form id="personForm" class="personForm" autocomplete="off" action="#" th:action="@{/welcome}"
+                          th:object="${person}" method="post" role="form">
+                        <table class="formTable">
+                            <tr>
+                                <td>
+                                    <label>First name</label>
+                                    <input type="text" th:field="*{firstName}"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Last name</label>
+                                    <input type="text" th:field="*{lastName}"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Last name on birth</label>
+                                    <input type="text" th:field="*{lastNameOnBirth}"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td th:each="genderType : ${genders}">
+                                    <input type="radio" th:field="*{gender}" th:value="${genderType.id}" />
+                                   <label th:for="${#ids.prev('genderType')}" th:text="${genderType.name}"></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                 <td>
+                                     <label>Birth date</label>
+                                     <input type="data" th:field="*{birthDate}"  />
+                                </td>
+                            </tr>
+                            <tr>
+                                 <td>
+                                     <label>is inALive</label>
+                                     <input type="checkbox"  name="inALive" th:checked="${inALive}" />
+                                     <div id="inAlive">click me</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> <div th:if="inALive" id="deathDate">
+                                    <label>Death Date</label>
+                                    <input type="data" th:field="*{deathDate}"  />
+                                </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <button type="submit" class="btn btn-primary btn-block">Register User</button>
+                    </form>
+                </div>
 
-    <ul class="timeline">
-        <div th:each="entry,status : ${persons}">
-            <li th:attr="class=${status.odd}?'timeline-inverted':''">
-                <div class="tl-circ"></div>
-                <div class="timeline-panel">
-                    <div class="tl-heading">
-                        <h4><span th:text="${entry.firstName}">First Name</span>
-                            <span th:text="${entry.lastName}">Last Name Now</span></h4>
-                        <p>
-                            <span th:text="${entry.birthDate}">born</span>
-                        </p>
-                    </div>
+
+                </p></div></td>
+            <td>
+                <div class="left_side">
+                    <ul class="timeline">
+                        <div th:each="entry,status : ${persons}">
+                            <li th:attr="class=${status.odd}?'timeline-inverted':''">
+                                <div class="tl-circ"></div>
+                                <div class="timeline-panel">
+                                    <div class="tl-heading">
+                                        <h4><span th:text="${entry.firstName}">First Name</span>
+                                            <span th:text="${entry.lastName}">Last Name Now</span></h4>
+                                        <p>
+                                            <span th:text="${entry.birthDate}">born</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                        <div th:each="entry,status : ${countrys}">
+                            <li th:attr="class=${status.odd}?'timeline-inverted':''">
+                                <div class="tl-circ"></div>
+                                <div class="timeline-panel">
+                                    <div class="tl-heading">
+                                        <h4><span th:text="${entry.name}">First Name</span></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </div>
+                    </ul></div>
+            </td>
+        </tr>
+        <tr class="left_tr">
+            <td></td>
+        </tr>
+        <tr class="footer">
+            <td>
+                <div class="footter">
+                    <span>footer</span>
                 </div>
-            </li>
-        </div>
-        <div th:each="entry,status : ${countrys}">
-            <li th:attr="class=${status.odd}?'timeline-inverted':''">
-                <div class="tl-circ"></div>
-                <div class="timeline-panel">
-                    <div class="tl-heading">
-                        <h4><span th:text="${entry.name}">First Name</span></h4>
-                    </div>
-                </div>
-            </li>
-        </div>
-    </ul>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
+
 </body>
 </html>

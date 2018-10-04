@@ -1,12 +1,17 @@
 package com.leroiv.familyTree.domain;
 
+import com.leroiv.familyTree.constants.Genders;
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @ToString
@@ -37,4 +42,17 @@ public class Person implements Serializable {
     @Column(name = "photo_path")
     private String photoPath;
 
+/*    @Transient
+    private Gender gender1;
+    @Transient
+    private List<Gender> genders;
+    public List<Gender> getGenders(){
+       return new ArrayList<Gender>(Arrays.asList(new Gender(10l,"male"), new Gender(20l,"female")));
+    }
+    @Builder
+    @Data
+    private static class Gender{
+        Long id;
+        String name;
+    }*/
 }
