@@ -1,4 +1,4 @@
-<!--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -17,34 +17,42 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form autocomplete="off" action="#" th:action="@{/registration}"
-                  th:object="${person}" method="post" class="form-horizontal"
+                  th:object="${user}" method="post" class="form-horizontal"
                   role="form">
                 <h2>Registration Form</h2>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                        <label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
                                class="validation-message"></label>
-                        <input type="text" th:field="*{firstName}" placeholder="First Name"
+                        <input type="text" th:field="*{userName}" placeholder="login"
+                               class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('userToPerson.firstName')}" th:errors="*{userToPerson.firstName}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{userToPerson.firstName}" placeholder="First Name"
                                class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                        <label	th:if="${#fields.hasErrors('userToPerson.lastName')}" th:errors="*{userToPerson.lastName}"
                                   class="validation-message"></label>
-                        <input type="text" th:field="*{lastName}"
+                        <input type="text" th:field="*{userToPerson.lastName}"
                                placeholder="Last Name" class="form-control" />
                     </div>
                 </div>
-               &lt;!&ndash; <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" th:field="*{email}" placeholder="Email"
-                               class="form-control" /> <label
-                            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                            class="validation-message"></label>
-                    </div>
-                </div>&ndash;&gt;
+                <!-- &lt;!&ndash; <div class="form-group">
+                      <div class="col-sm-9">
+                          <input type="text" th:field="*{userToPerson.email}" placeholder="Email"
+                                 class="form-control" /> <label
+                              th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                              class="validation-message"></label>
+                      </div>
+                  </div>&ndash;&gt;-->
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="password" th:field="*{password}"
@@ -70,39 +78,10 @@
 
                 <span th:utext="${successMessage}"></span>
 
-
             </form>
         </div>
     </div>
 </div>
 
-</body>
-</html>
-
--->
-
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Registration</title>
-    <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap.min.css">
-    </link>
-    <link rel="stylesheet" type="text/css" media="all" href="css/bootstrap-glyphicons.
-css"></link>
-    <link rel="stylesheet" type="text/css" media="all" href="css/styles.css"></link>
-</head>
-<body>
-<div class="container">
-    <div class="content">
-
-        <h2>Registration to FamilyTree app</h2>
-        <form name="user" th:action="@{/registration}" action="/login" method="POST" >
-            <input type="text" name="userName" value="userName" placeholder="User name" />
-            <input type="password" name="password"  value="password" placeholder="Password" />
-            <input type="password" name="confirmPassword"  value="confirmPassword" placeholder="Confirm password" />
-            <input type="submit" class="btn btn-primary btn-block" value="Register User"></input>
-        </form>
-    </div>
-</div>
 </body>
 </html>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Optional;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
  * @author viorel cojocaru
@@ -42,6 +43,9 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    private PersonService personService;
+
     public UserController() {
     }
 
@@ -55,17 +59,15 @@ public class UserController {
 
     @GetMapping("/admin")
     public ModelAndView admin(ModelAndView modelAndView) {
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User loggedUser = userRepository.findOneWithPersonByUserName(auth.getName()).get();
-        Person person = loggedUser.getLoggedPerson();
+        Person person = loggedUser.getUserToPerson();
         if (loggedUser.getRoles().stream().anyMatch(role -> role.getId()==Roles.ADMIN)) {
             modelAndView.addObject("admin", person);
             modelAndView.setViewName("admin");
         } else {
             return welcome(new ModelAndView());
         }
-
         return modelAndView;
     }
 
@@ -81,30 +83,27 @@ public class UserController {
         User userExists = userRepository.findUserByUserName(user.getUserName());
         if (userExists != null) {
             bindingResult
-                    .rejectValue("email", "error.user",
+                    .rejectValue("error.user",
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
         } else {
+            personService.saveOrUpdate(user.getUserToPerson());
             userService.saveOrUpdate(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-//            modelAndView.addObject("user", new User());
             return login(new ModelAndView());
         }
         return modelAndView;
     }
 
-
-    private PersonService personService;
-
     @GetMapping(Pages.VIEW_WELCOME)
     public ModelAndView welcome(ModelAndView modelAndView) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         modelAndView.setViewName("welcome");
-        User loggedUser = userService.findUserByUserName(auth.getName());
-        Person person = loggedUser.getLoggedPerson();
-        modelAndView.addObject("loggedPerson", person);
+        User user = userService.findUserByUserName(auth.getName());
+        Person person = user.getUserToPerson();
+        modelAndView.addObject("person", person);
         modelAndView.addObject("persons", personRepo.findAll());
         modelAndView.addObject("countrys", countryRepo.findAll());
 

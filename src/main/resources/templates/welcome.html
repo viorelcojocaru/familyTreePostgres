@@ -13,8 +13,8 @@ extras/spring-security">
     <h3>Family Tree welcome page</h3>
     <h2>
         <p>
-            <span th:text="${loggedPerson.firstName}"></span>
-            <span th:text="${loggedPerson.lastName}"></span>
+            <span th:text="${person.firstName}"></span>
+            <span th:text="${person.lastName}"></span>
         </p>
     </h2>
     <p sec:authorize="isAuthenticated()">
