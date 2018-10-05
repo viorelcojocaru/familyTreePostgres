@@ -109,6 +109,7 @@ public class UserController {
     @PostMapping(Pages.VIEW_WELCOME)
     public ModelAndView newPerson(@Valid Person person, BindingResult bindingResult, ModelAndView modelAndView) {
         modelAndView.setViewName("welcome");
+        person.setGender(person.getCurrentGender().getId().intValue());
         personService.saveOrUpdate(person);
         modelAndView.addObject("successMessage", "Person " + person.getFirstName() + " " + person.getLastName() + "has been saved successfully");
         return welcome(modelAndView);

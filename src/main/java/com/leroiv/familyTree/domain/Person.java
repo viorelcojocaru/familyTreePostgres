@@ -64,7 +64,7 @@ public class Person implements Serializable {
     }
     @Builder
     @Data
-    private static class Gender{
+    public static class Gender{
         Long id;
         String name;
     }
