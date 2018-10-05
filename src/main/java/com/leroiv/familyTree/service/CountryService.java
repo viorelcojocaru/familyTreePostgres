@@ -4,7 +4,6 @@ import com.leroiv.familyTree.domain.Country;
 import com.leroiv.familyTree.repository.CountryRepository;
 import com.leroiv.familyTree.service.intf.CountryServiceIntf;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

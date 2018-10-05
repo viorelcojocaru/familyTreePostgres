@@ -134,7 +134,7 @@ public class UserController {
     @PostMapping("/" + Pages.VIEW_WELCOME)
     public ModelAndView saveContact(@PathVariable String id, @RequestBody Contact contact, ModelAndView modelAndView) {
         if (id != null) {
-            contactService
+            contactService.saveOrUpdate(contact);
             modelAndView.setViewName("registration");
         }
         return modelAndView;
