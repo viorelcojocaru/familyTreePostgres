@@ -3,6 +3,7 @@ package com.leroiv.familyTree.web;
 import com.leroiv.familyTree.constants.Genders;
 import com.leroiv.familyTree.constants.Pages;
 import com.leroiv.familyTree.constants.Roles;
+import com.leroiv.familyTree.domain.Contact;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
 import com.leroiv.familyTree.repository.CountryRepository;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Optional;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
  * @author viorel cojocaru
@@ -95,21 +97,34 @@ public class UserController {
         modelAndView.setViewName("welcome");
         User user = userService.findUserByUserName(auth.getName());
         Person person = user.getUserToPerson();
-
-        modelAndView.addObject("genders", Genders.values());
-
+        modelAndView.addObject("genders", person.getGenders());
         modelAndView.addObject("person", person);
         modelAndView.addObject("persons", personRepo.findAll());
         modelAndView.addObject("countrys", countryRepo.findAll());
 
         return modelAndView;
     }
-//    @ModelAttribute("allGenders")
-//    private String[] getAllGenders() {
-//        return new String[] {
-//                "Female", "Male"
-//        };
-//    }
+
+    @PostMapping(Pages.VIEW_WELCOME)
+    public ModelAndView newPerson(@Valid Person person, BindingResult bindingResult, ModelAndView modelAndView) {
+        modelAndView.setViewName("welcome");
+        personService.saveOrUpdate(person);
+        modelAndView.addObject("successMessage", "Person "+person.getFirstName()+" "+person.getLastName()+"has been saved successfully");
+        return welcome(modelAndView);
+    }
+
+    @PutMapping(Pages.VIEW_WELCOME+"/{id}" )
+    public ModelAndView updatePerson(@PathVariable String id, @RequestBody  Person person, ModelAndView modelAndView) {
+        if (id!=null){
+            modelAndView.setViewName("welcome");
+            personService.saveOrUpdate(person);
+            modelAndView.addObject("successMessage", "Person "+person.getFirstName()+" "+person.getLastName()+"has been updated successfully");
+        }
+        return modelAndView;
+    }
+
+
+
 
 
 }

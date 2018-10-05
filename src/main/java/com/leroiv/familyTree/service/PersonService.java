@@ -41,8 +41,5 @@ public class PersonService implements PersonServiceIntf {
         personRepository.deleteById(id);
     }
 
-   /* public Person getLoggedPersonByUserName(String userName){
 
-        return personRepository.findOneWithPersonByUserName(userName);
-    }*/
 }

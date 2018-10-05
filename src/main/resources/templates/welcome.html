@@ -2,9 +2,9 @@
 <html lang="en-US" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/
 extras/spring-security">
 <head>
-    <meta charset="utf-8"></meta>
-    <meta http-equiv="Content-Type" content="text/html"></meta>
-    <link rel="stylesheet" type="text/css" href="familyTreestyles.css">
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/familyTreeStyles.css}">
     <title>Welcome</title>
 
 </head>
@@ -32,62 +32,95 @@ extras/spring-security">
             </td>
         </tr>
         <tr class="right_tr">
-            <td> <div class="right_side">
-                <div>
-                    <form id="personForm" class="personForm" autocomplete="off" action="#" th:action="@{/welcome}"
-                          th:object="${person}" method="post" role="form">
-                        <table class="formTable">
-                            <tr>
-                                <td>
-                                    <label>First name</label>
-                                    <input type="text" th:field="*{firstName}"  />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Last name</label>
-                                    <input type="text" th:field="*{lastName}"  />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Last name on birth</label>
-                                    <input type="text" th:field="*{lastNameOnBirth}"  />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td th:each="genderType : ${genders}">
-                                    <input type="radio" th:field="*{gender}" th:value="${genderType.id}" />
-                                   <label th:for="${#ids.prev('genderType')}" th:text="${genderType.name}"></label>
-                                </td>
-                            </tr>
-                            <tr>
-                                 <td>
-                                     <label>Birth date</label>
-                                     <input type="data" th:field="*{birthDate}"  />
-                                </td>
-                            </tr>
-                            <tr>
-                                 <td>
-                                     <label>is inALive</label>
-                                     <input type="checkbox"  name="inALive" th:checked="${inALive}" />
-                                     <div id="inAlive">click me</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> <div th:if="inALive" id="deathDate">
-                                    <label>Death Date</label>
-                                    <input type="data" th:field="*{deathDate}"  />
-                                </div>
-                                </td>
-                            </tr>
-                        </table>
-                        <button type="submit" class="btn btn-primary btn-block">Register User</button>
-                    </form>
+            <td>
+                <div class="right_side">
+                    <div class="tab">
+                        <button class="tablinks" onclick="openTab(event, 'Personal')">Personal</button>
+                        <button class="tablinks" onclick="openTab(event, 'Contacts')">Contacts</button>
+                        <button class="tablinks" onclick="openTab(event, 'Biographical')">Biographical</button>
+                    </div>
+                    <div id="Personal" class="tabcontent">
+                        <h3><span th:text="${person.firstName}"></span>
+                            <span th:text="${person.lastName}"></span></h3>
+                        <p>Your personal data.</p>
+                        <div class="form-continer">
+                            <form id="personForm" class="personForm" autocomplete="off" action="#"
+                                  th:action="@{/welcome}"
+                                  th:object="${person}" method="post" role="form">
+                                <input type="text" th:field="*{id}"/>
+                                <table class="formTable">
+
+                                    <tr>
+                                        <td>
+
+                                            <label>First name</label>
+                                            <input type="text" th:field="*{firstName}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Last name</label>
+                                            <input type="text" th:field="*{lastName}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Last name on birth</label>
+                                            <input type="text" th:field="*{lastNameOnBirth}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td th:each="currentGender : ${genders}">
+                                            <input type="radio" th:field="*{currentGender}"
+                                                   th:value="${currentGender}"/>
+                                            <label th:for="${#ids.prev('currentGender')}"
+                                                   th:text="${currentGender.name}"></label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Birth date</label>
+                                            <input type="data" th:field="*{birthDate}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>is inALive</label>
+                                            <input type="checkbox" name="inALive" th:checked="${inALive}"/>
+                                            <div id="inAlive">click me</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div th:if="inALive" id="deathDate">
+                                                <label>Death Date</label>
+                                                <input type="data" th:field="*{deathDate}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <button type="submit" class="btn btn-primary btn-block">Register User</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div id="Contacts" class="tabcontent">
+                        <h3>Contacts</h3>
+                        <div class="form-continer">
+                            <p>youre Contacts.</p>
+                            <!--<form id="contactForm" class="contactForm" autocomplete="off" action="#"
+                                  th:action="@{/welcome}"
+                                  th:object="${contact}" method="put" role="form">
+                            </form>-->
+                        </div>
+                    </div>
+
+                    <div id="Biographical" class="tabcontent">
+                        <h3>Biographical</h3>
+                        <p>Tokyo is the capital of Japan.</p>
+                    </div>
                 </div>
-
-
-                </p></div></td>
+            </td>
             <td>
                 <div class="left_side">
                     <ul class="timeline">
@@ -115,7 +148,8 @@ extras/spring-security">
                                 </div>
                             </li>
                         </div>
-                    </ul></div>
+                    </ul>
+                </div>
             </td>
         </tr>
         <tr class="left_tr">
@@ -130,8 +164,7 @@ extras/spring-security">
         </tr>
         </tbody>
     </table>
-
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
 </div>
-
-</body>
+<!--<a href="/notesEdit/1"   th:href="@{/notesEdit/__${notes.id}__}">Edit</a>-->
 </html>

@@ -31,7 +31,7 @@ public class Person implements Serializable {
 
     @Column(name = "last_name_on_birth")
     private String lastNameOnBirth;
-    private int gender;
+    private int gender=30;
 
     @Column(name = "birth_date")
     private Date birthDate;
@@ -42,17 +42,30 @@ public class Person implements Serializable {
     @Column(name = "photo_path")
     private String photoPath;
 
-/*    @Transient
-    private Gender gender1;
+   @Transient
+    private Gender currentGender;
+
+    public Gender getCurrentGender() {
+        return  getGenders().stream()
+                .filter(one->one.id.intValue()==getGender())
+                .findAny().orElse(null);
+    }
+
+    public void setCurrentGender(Gender currentGender) {
+        this.gender=currentGender.getId().intValue();
+        this.currentGender = currentGender;
+    }
+
     @Transient
-    private List<Gender> genders;
+    private List<Gender> genders ;
+
     public List<Gender> getGenders(){
-       return new ArrayList<Gender>(Arrays.asList(new Gender(10l,"male"), new Gender(20l,"female")));
+       return new ArrayList<Gender>(Arrays.asList(new Gender(10l,"Male"), new Gender(20l,"Female"), new Gender(30l,"Undefined")));
     }
     @Builder
     @Data
     private static class Gender{
         Long id;
         String name;
-    }*/
+    }
 }
