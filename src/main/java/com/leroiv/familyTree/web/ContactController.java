@@ -1,6 +1,6 @@
 package com.leroiv.familyTree.web;
 
-import com.leroiv.familyTree.constants.Pages;
+/*import com.leroiv.familyTree.constants.Pages;
 import com.leroiv.familyTree.domain.Contact;
 import com.leroiv.familyTree.repository.CountryRepository;
 import com.leroiv.familyTree.repository.PersonRepository;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 @RestController
-@RequestMapping("/")
+@RequestMapping("/")*/
 
 public class ContactController {
 
-    @Autowired
+   /* @Autowired
     private CountryRepository countryRepo;
 
 
@@ -35,5 +35,5 @@ public class ContactController {
         modelAndView.addObject("contact", new Contact());
         modelAndView.setViewName("registration");
         return modelAndView;
-    }
+    }*/
 }

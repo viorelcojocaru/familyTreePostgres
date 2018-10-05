@@ -19,7 +19,7 @@ public class Contact {
     private Person personId;
     @Email
     private String email;
-    @Column(name = "web_site")
+        @Column(name = "web_site")
     private String webSite;
     @Column(name = "face_book")
     private String faceBook;
@@ -30,7 +30,7 @@ public class Contact {
     private String city;
     @ManyToOne(targetEntity = Country.class)
     @JoinColumn(name = "country_id", referencedColumnName = "id")
-    private Country countryId;
+    private Country country;
     private String other;
 
 }

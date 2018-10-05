@@ -101,6 +101,8 @@ extras/spring-security">
                                 </table>
                                 <button type="submit" class="btn btn-primary btn-block">Register User</button>
                             </form>
+                           <!-- <a class="btn btn-warning" href="/edit-todo">Edit Todo</a>
+                            <a class="btn btn-warning" href="/delete-todo">Delete Todo</a>-->
                         </div>
                     </div>
 
@@ -108,10 +110,77 @@ extras/spring-security">
                         <h3>Contacts</h3>
                         <div class="form-continer">
                             <p>youre Contacts.</p>
-                            <!--<form id="contactForm" class="contactForm" autocomplete="off" action="#"
+                            <form id="contactForm" class="contactForm" autocomplete="off" action="#"
                                   th:action="@{/welcome}"
                                   th:object="${contact}" method="put" role="form">
-                            </form>-->
+                                <input type="text" th:field="*{id}"/>
+                                <table class="formTable">
+
+                                    <tr>
+                                        <td>
+
+                                            <label>email</label>
+                                            <input type="text" th:field="*{email}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>WebSite</label>
+                                            <input type="text" th:field="*{webSite}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>FaceBook</label>
+                                            <input type="text" th:field="*{faceBook}"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <label>Blog</label>
+                                            <input type="data" th:field="*{blog}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>PhotoGalery</label>
+                                            <input type="data" th:field="*{photoGalery}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Skype</label>
+                                            <input type="data" th:field="*{skype}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>City</label>
+                                            <input type="data" th:field="*{city}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Country</label>
+                                            <!--<select th:field="*{country}">
+                                                <option th:each="country : ${countys}"
+                                                        th:value="${country}"
+                                                        th:text="#{${'contact.country.' + country}}">${country.name}</option>
+                                            </select>-->
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Birth date</label>
+                                            <input type="data" th:field="*{other}"/>
+                                        </td>
+                                    </tr>
+
+
+                                </table>
+                                <button type="submit" class="btn btn-primary btn-block">Save Contact</button>
+                            </form>
                         </div>
                     </div>
 
@@ -166,5 +235,5 @@ extras/spring-security">
     </table>
     <script type="text/javascript" th:src="@{/js/common.js}"></script>
 </div>
-<!--<a href="/notesEdit/1"   th:href="@{/notesEdit/__${notes.id}__}">Edit</a>-->
+
 </html>

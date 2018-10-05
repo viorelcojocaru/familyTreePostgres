@@ -1,13 +1,12 @@
 package com.leroiv.familyTree.web;
 
-import com.leroiv.familyTree.constants.Genders;
 import com.leroiv.familyTree.constants.Pages;
 import com.leroiv.familyTree.constants.Roles;
 import com.leroiv.familyTree.domain.Contact;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
 import com.leroiv.familyTree.repository.CountryRepository;
-import com.leroiv.familyTree.repository.PersonRepository;
+import com.leroiv.familyTree.service.CountryService;
 import com.leroiv.familyTree.service.PersonService;
 import com.leroiv.familyTree.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Optional;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
  * @author viorel cojocaru
@@ -29,19 +27,18 @@ import java.util.Optional;
 @RequestMapping("/")
 public class UserController {
 
-    @Autowired
-    private PersonRepository personRepo;
+    private final CountryService countryService;
+    private final UserService userService;
+    private final PersonService personService;
 
     @Autowired
-    private CountryRepository countryRepo;
+    public UserController(CountryService countryService,
+                          UserService userService,
+                          PersonService personService) {
+        this.personService=personService;
+        this.countryService = countryService;
+        this.userService=userService;
 
-    @Autowired
-    UserService userService;
-
-    @Autowired
-    private PersonService personService;
-
-    public UserController() {
     }
 
 
@@ -56,7 +53,7 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User loggedUser = userService.findUserByUserName(auth.getName());
         Person person = loggedUser.getUserToPerson();
-        if (loggedUser.getRoles().stream().anyMatch(role -> role.getId()==Roles.ADMIN)) {
+        if (loggedUser.getRoles().stream().anyMatch(role -> role.getId() == Roles.ADMIN)) {
             modelAndView.addObject("admin", person);
             modelAndView.setViewName("admin");
         } else {
@@ -65,7 +62,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/"+Pages.VIEW_REGISTRATION)
+    @GetMapping("/" + Pages.VIEW_REGISTRATION)
     public ModelAndView registration(ModelAndView modelAndView) {
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("registration");
@@ -99,8 +96,8 @@ public class UserController {
         Person person = user.getUserToPerson();
         modelAndView.addObject("genders", person.getGenders());
         modelAndView.addObject("person", person);
-        modelAndView.addObject("persons", personRepo.findAll());
-        modelAndView.addObject("countrys", countryRepo.findAll());
+        modelAndView.addObject("persons", personService.listAll());
+        modelAndView.addObject("countrys", countryService.listAll());
 
         return modelAndView;
     }
@@ -109,22 +106,37 @@ public class UserController {
     public ModelAndView newPerson(@Valid Person person, BindingResult bindingResult, ModelAndView modelAndView) {
         modelAndView.setViewName("welcome");
         personService.saveOrUpdate(person);
-        modelAndView.addObject("successMessage", "Person "+person.getFirstName()+" "+person.getLastName()+"has been saved successfully");
+        modelAndView.addObject("successMessage", "Person " + person.getFirstName() + " " + person.getLastName() + "has been saved successfully");
         return welcome(modelAndView);
     }
 
-    @PutMapping(Pages.VIEW_WELCOME+"/{id}" )
-    public ModelAndView updatePerson(@PathVariable String id, @RequestBody  Person person, ModelAndView modelAndView) {
-        if (id!=null){
+    @PutMapping(Pages.VIEW_WELCOME + "/{id}")
+    public ModelAndView updatePerson(@PathVariable String id, @RequestBody Person person, ModelAndView modelAndView) {
+        if (id != null) {
             modelAndView.setViewName("welcome");
             personService.saveOrUpdate(person);
-            modelAndView.addObject("successMessage", "Person "+person.getFirstName()+" "+person.getLastName()+"has been updated successfully");
+            modelAndView.addObject("successMessage", "Person " + person.getFirstName() + " " + person.getLastName() + "has been updated successfully");
         }
         return modelAndView;
     }
 
+    @GetMapping("/" + Pages.VIEW_WELCOME)
+    public ModelAndView contact(ModelAndView modelAndView) {
+        modelAndView.addObject("contact", new Contact());
+        modelAndView.setViewName("registration");
+        return modelAndView;
+    }
+
+    @PostMapping("/" + Pages.VIEW_WELCOME)
+    public ModelAndView saveContact(@PathVariable String id, @RequestBody Contact contact, ModelAndView modelAndView) {
+        if (id != null) {
+
+            modelAndView.setViewName("registration");
+        }
 
 
+        return modelAndView;
+    }
 
 
 }
