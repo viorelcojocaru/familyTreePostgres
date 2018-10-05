@@ -6,6 +6,7 @@ import com.leroiv.familyTree.domain.Contact;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
 import com.leroiv.familyTree.repository.CountryRepository;
+import com.leroiv.familyTree.service.ContactService;
 import com.leroiv.familyTree.service.CountryService;
 import com.leroiv.familyTree.service.PersonService;
 import com.leroiv.familyTree.service.UserService;
@@ -30,14 +31,17 @@ public class UserController {
     private final CountryService countryService;
     private final UserService userService;
     private final PersonService personService;
+    private final ContactService contactService;
 
     @Autowired
     public UserController(CountryService countryService,
                           UserService userService,
-                          PersonService personService) {
+                          PersonService personService,
+                          ContactService contactService) {
         this.personService=personService;
         this.countryService = countryService;
         this.userService=userService;
+        this.contactService=contactService;
 
     }
 
@@ -130,11 +134,9 @@ public class UserController {
     @PostMapping("/" + Pages.VIEW_WELCOME)
     public ModelAndView saveContact(@PathVariable String id, @RequestBody Contact contact, ModelAndView modelAndView) {
         if (id != null) {
-
+            contactService
             modelAndView.setViewName("registration");
         }
-
-
         return modelAndView;
     }
 
