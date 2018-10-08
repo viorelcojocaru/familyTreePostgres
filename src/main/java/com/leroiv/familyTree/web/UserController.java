@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
@@ -125,21 +126,16 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/" + Pages.VIEW_WELCOME)
-    public ModelAndView contact(ModelAndView modelAndView) {
-        modelAndView.addObject("contact", new Contact());
-        modelAndView.setViewName("registration");
-        return modelAndView;
-    }
 
-    @PostMapping("/" + Pages.VIEW_WELCOME)
-    public ModelAndView saveContact(@PathVariable String id, @RequestBody Contact contact, ModelAndView modelAndView) {
-        if (id != null) {
-            contactService.saveOrUpdate(contact);
-            modelAndView.setViewName("registration");
-        }
-        return modelAndView;
-    }
+
+//    @PostMapping("/" + Pages.VIEW_WELCOME)
+//    public ModelAndView saveContact(@PathVariable String id, @RequestBody Contact contact, ModelAndView modelAndView) {
+//        if (id != null) {
+//            contactService.saveOrUpdate(contact);
+//            modelAndView.setViewName("registration");
+//        }
+//        return modelAndView;
+//    }
 
 
 }
