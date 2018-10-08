@@ -161,7 +161,7 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html" >
             <td>
                 <div class="left_side">
                     <div class="container">
-                        <button class="btn btn-success nBtn">New</button>
+                        <a th:href="@{'editPerson/id/0'}" class="btn btn-primary eBtn">New Person</a>
                         <div class="row">
                             <div class="col" th:each="entry,status : ${persons}">
                                 <h4><span th:text="${entry.firstName}">First Name</span>

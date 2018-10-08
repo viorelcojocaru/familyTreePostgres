@@ -44,8 +44,8 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html" >
                             <div id="Personal" class="tabcontent">
                                 <p>Your personal data.</p>
                                 <div class="form-continer">
-                                    <form id="personForm" class="personForm" autocomplete="off" action="#"
-                                          th:object="${person}" th:action="@{/save}"
+                                    <form id="personForm" class="personForm" autocomplete="off" th:action="@{../save}"
+                                          th:object="${person}"
                                           method="post" role="form">
                                         <input id="id" type="text" th:field="*{id}"/>
                                         <table class="formTable">
@@ -102,8 +102,8 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html" >
                                                 </td>
                                             </tr>
                                         </table>
-                                        <button type="submit" class="btn btn-primary btn-block" name="save">Save</button>
-                                        <button type="submit" class="btn btn-primary btn-block" name="remove" th:value="${id}" >Remove</button>
+                                        <button type="submit" class="btn btn-primary btn-block" >Save</button>
+                                        <!--<button type="submit" class="btn btn-primary btn-block" name="remove" th:value="${id}" >Remove</button>-->
                                     </form>
                                 </div>
                             </div>
@@ -195,7 +195,7 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html" >
                     <td>
                         <div class="left_side">
                             <div class="container">
-                                <button class="btn btn-success nBtn">New</button>
+                                <form action="#" th:action="@{/editPerson}" th:object="${newPerson}" method="POST">
                                 <div class="row">
                                     <div class="col" th:each="entry,status : ${persons}">
                                         <h4><span th:text="${entry.firstName}">First Name</span>
@@ -203,7 +203,8 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html" >
                                         <p>
                                             <span th:text="${entry.birthDate}">born</span>
                                         </p>
-                                        <a th:href="@{''+${entry.id}}" class="btn btn-primary eBtn" th:text="${entry.id}">Edit</a>
+                                        <a th:href="@{''+${entry.id}}" class="btn btn-primary eBtn" >Edit</a>
+                                        <!--<a th:href="@{../'delete/id/'+${entry.id}}" class="btn btn-primary eBtn" >Delete</a>-->
                                     </div>
                                 </div>
                             </div>
