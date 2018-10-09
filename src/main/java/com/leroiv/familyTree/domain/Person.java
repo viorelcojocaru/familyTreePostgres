@@ -1,8 +1,8 @@
 package com.leroiv.familyTree.domain;
 
-import com.leroiv.familyTree.constants.Genders;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@ToString
 @Entity
 @Table(name = "person", schema = "public")
 public class Person implements Serializable {
@@ -36,11 +35,15 @@ public class Person implements Serializable {
     @Column(name = "birth_date")
     private Date birthDate;
     @Column(name = "in_alive")
-    private boolean inALive = true;
+    private boolean inALive;
     @Column(name = "death_date")
     private Date deathDate;
     @Column(name = "photo_path")
     private String photoPath;
+
+    @ToString.Exclude
+    @OneToOne(mappedBy="person" )
+    private Contact contact;
 
    @Transient
     private Gender currentGender;
@@ -68,4 +71,5 @@ public class Person implements Serializable {
         Long id;
         String name;
     }
+
 }

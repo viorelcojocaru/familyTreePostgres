@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
  * @author viorel cojocaru
@@ -32,20 +34,16 @@ public class UserController {
     private final CountryService countryService;
     private final UserService userService;
     private final PersonService personService;
-    private final ContactService contactService;
+
 
     @Autowired
     public UserController(CountryService countryService,
                           UserService userService,
-                          PersonService personService,
-                          ContactService contactService) {
-        this.personService=personService;
+                          PersonService personService) {
+        this.personService = personService;
         this.countryService = countryService;
-        this.userService=userService;
-        this.contactService=contactService;
-
+        this.userService = userService;
     }
-
 
     @GetMapping("/login")
     public ModelAndView login(ModelAndView modelAndView) {
@@ -99,10 +97,17 @@ public class UserController {
         modelAndView.setViewName("welcome");
         User user = userService.findUserByUserName(auth.getName());
         Person person = user.getUserToPerson();
+        Contact contact = person.getContact();
+        if (contact == null) {
+            contact = new Contact();
+        }
         modelAndView.addObject("genders", person.getGenders());
         modelAndView.addObject("person", person);
         modelAndView.addObject("persons", personService.listAll());
-        modelAndView.addObject("countrys", countryService.listAll());
+        modelAndView.addObject("contact", contact);
+        Calendar calendars = Calendar.getInstance();
+        modelAndView.addObject("calendars", calendars);
+
 
         return modelAndView;
     }
@@ -115,27 +120,6 @@ public class UserController {
         modelAndView.addObject("successMessage", "Person " + person.getFirstName() + " " + person.getLastName() + "has been saved successfully");
         return welcome(modelAndView);
     }
-
-    @PutMapping(Pages.VIEW_WELCOME + "/{id}")
-    public ModelAndView updatePerson(@PathVariable String id, @RequestBody Person person, ModelAndView modelAndView) {
-        if (id != null) {
-            modelAndView.setViewName("welcome");
-            personService.saveOrUpdate(person);
-            modelAndView.addObject("successMessage", "Person " + person.getFirstName() + " " + person.getLastName() + "has been updated successfully");
-        }
-        return modelAndView;
-    }
-
-
-
-//    @PostMapping("/" + Pages.VIEW_WELCOME)
-//    public ModelAndView saveContact(@PathVariable String id, @RequestBody Contact contact, ModelAndView modelAndView) {
-//        if (id != null) {
-//            contactService.saveOrUpdate(contact);
-//            modelAndView.setViewName("registration");
-//        }
-//        return modelAndView;
-//    }
 
 
 }

@@ -1,5 +1,6 @@
 package com.leroiv.familyTree.web;
 
+import com.leroiv.familyTree.domain.Contact;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Calendar;
 
 @RestController
 @RequestMapping("/")
@@ -24,10 +26,23 @@ public class PersonController {
 
     @GetMapping("/editPerson/id/{id}")
     public ModelAndView edit(@PathVariable Long id, ModelAndView modelAndView) {
-        Person person = personService.getById(id);
+        Person person;
+        if (id==0)
+            person=new Person();
+        else
+            person = personService.getById(id);
+
+        Contact contact=person.getContact();
+        if (contact==null){
+            contact=new Contact();
+            contact.setPerson(person);
+        }
         modelAndView.addObject("person", person);
         modelAndView.addObject("persons", personService.listAll());
+        modelAndView.addObject("contact", contact);
         modelAndView.setViewName("editPerson");
+        Calendar calendars = Calendar.getInstance();
+        modelAndView.addObject("calendars", calendars);
         return modelAndView;
 
     }
@@ -35,21 +50,19 @@ public class PersonController {
     @PostMapping(value = "/editPerson/save" )
     public ModelAndView save(@Valid Person person , BindingResult bindingResult , ModelAndView modelAndView) {
         modelAndView.addObject("person", person);
-        modelAndView.setViewName("/editPerson");
         personService.saveOrUpdate(person);
-        modelAndView.setViewName("/editPerson/id/"+person.getId());
-        return modelAndView;
+        return edit( person.getId(),new ModelAndView());
     }
 
 
-    @GetMapping("create-person")
+   /* @GetMapping("create-person")
     public ModelAndView createUserView() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("editPerson");
-        mav.addObject("newPerson", new Person());
-        mav.addObject("persons", personService.listAll());
-        return mav;
-    }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("editPerson");
+        modelAndView.addObject("newPerson", new Person());
+        modelAndView.addObject("persons", personService.listAll());
+        return modelAndView;
+    }*/
 
     @PostMapping("editPerson")
     public ModelAndView createPerson(@Valid Person person, BindingResult result) {

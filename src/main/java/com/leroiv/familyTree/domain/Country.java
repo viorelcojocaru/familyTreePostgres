@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Data
+@ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Entity
@@ -16,4 +17,7 @@ public class Country {
     @Column(name = "id", unique = true)
     private int id;
     private String name;
+
+    @OneToOne(mappedBy="country")
+    private Contact contact;
 }

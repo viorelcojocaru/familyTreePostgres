@@ -1,35 +1,33 @@
 package com.leroiv.familyTree.web;
 
 import com.leroiv.familyTree.domain.Contact;
+import com.leroiv.familyTree.domain.Person;
+import com.leroiv.familyTree.service.ContactService;
 import com.leroiv.familyTree.service.CountryService;
-import com.leroiv.familyTree.service.PersonService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/")
+@AllArgsConstructor
 public class ContactController {
 
     private final CountryService countryService;
 
-
-    private final PersonService personService;
+    private final ContactService contactService;
 
     @Autowired
-    public ContactController(PersonService personService, CountryService countryService) {
-        this.personService = personService;
-        this.countryService = countryService;
+    private PersonController personController;
 
-    }
-
-    @GetMapping("/editPerson")
-    public ModelAndView contact(ModelAndView modelAndView) {
-        modelAndView.addObject("contact", new Contact());
-        modelAndView.setViewName("editPerson");
-        return modelAndView;
+    @PostMapping("/editPersonContactSave")
+    public ModelAndView savePerson(@Valid Contact contact, BindingResult result) {
+        contactService.saveOrUpdate(contact);
+        return personController.edit(contact.getPerson().getId(), new ModelAndView());
     }
 
 }

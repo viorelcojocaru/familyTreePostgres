@@ -1,4 +1,5 @@
 package com.leroiv.familyTree.domain;
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -14,12 +15,13 @@ public class Contact {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(targetEntity = Person.class)
-    @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person personId;
-    @Email
+    @ToString.Exclude
+    @OneToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
+
     private String email;
-        @Column(name = "web_site")
+    @Column(name = "web_site")
     private String webSite;
     @Column(name = "face_book")
     private String faceBook;
@@ -28,9 +30,8 @@ public class Contact {
     private String photoGalery;
     private String skype;
     private String city;
-    @ManyToOne(targetEntity = Country.class)
-    @JoinColumn(name = "country_id", referencedColumnName = "id")
+    @OneToOne
+    @JoinColumn(name = "country_id")
     private Country country;
-    private String other;
 
 }
