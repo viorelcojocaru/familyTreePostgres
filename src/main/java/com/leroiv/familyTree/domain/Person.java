@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,11 +32,12 @@ public class Person implements Serializable {
     @Column(name = "last_name_on_birth")
     private String lastNameOnBirth;
     private int gender=30;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birth_date")
     private Date birthDate;
     @Column(name = "in_alive")
     private boolean inALive;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "death_date")
     private Date deathDate;
     @Column(name = "photo_path")
