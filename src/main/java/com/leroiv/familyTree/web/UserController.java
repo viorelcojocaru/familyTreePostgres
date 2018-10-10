@@ -5,8 +5,6 @@ import com.leroiv.familyTree.constants.Roles;
 import com.leroiv.familyTree.domain.Contact;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
-import com.leroiv.familyTree.repository.CountryRepository;
-import com.leroiv.familyTree.service.ContactService;
 import com.leroiv.familyTree.service.CountryService;
 import com.leroiv.familyTree.service.PersonService;
 import com.leroiv.familyTree.service.UserService;
@@ -14,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
@@ -34,7 +33,8 @@ public class UserController {
     private final CountryService countryService;
     private final UserService userService;
     private final PersonService personService;
-
+    @Autowired
+    private LoginController loginController;
 
     @Autowired
     public UserController(CountryService countryService,
@@ -45,11 +45,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
-    public ModelAndView login(ModelAndView modelAndView) {
-        modelAndView.setViewName("login");
-        return modelAndView;
-    }
 
     @GetMapping("/admin")
     public ModelAndView admin(ModelAndView modelAndView) {
@@ -86,7 +81,7 @@ public class UserController {
             personService.saveOrUpdate(user.getUserToPerson());
             userService.saveOrUpdate(user);
             modelAndView.addObject("successMessage", "User has been registered successfully");
-            return login(new ModelAndView());
+            return loginController.login(new ModelAndView());
         }
         return modelAndView;
     }

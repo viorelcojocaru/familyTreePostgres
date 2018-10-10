@@ -1,10 +1,12 @@
 package com.leroiv.familyTree.constants;
 
 public class AppAcountTypes {
-    private final static int    MARRIED=10,
-                                ENGAGED=11,
-                                RELATIONSHIP=12,
-                                SEPARATED=13,
-                                DIVORCET=14,
-                                ANULLED=15;
+
+    private final static long
+            CILD = 10,
+            PARTNER = 20,
+            EX_PARTNER = 30,
+            GOD_PARENTS = 40;
+
+
 }
