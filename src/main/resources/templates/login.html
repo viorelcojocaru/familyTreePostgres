@@ -20,38 +20,36 @@
 </form>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <form th:action="@{/login}" method="POST" class="form-horizontal">
-                <h3 class="form-signin-heading" th:text="Welcome"></h3>
-                <div class="form-group">
-                    <div class="col-sm-9">
-
+    <div class="table">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <form th:action="@{/login}" method="POST" class="form-horizontal">
+                    <h3 class="form-signin-heading" th:text="Welcome"></h3>
+                    <div class="form-group">
                         <label for="username" class="sr-only">Login</label>
                         <input type="text" id="username" name="username" value="username" th:placeholder="Username"
                                class="form-control"/>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
+                    <div class="form-group">
                         <label for="password" class="sr-only">Password</label>
                         <input type="password" id="password" name="password" th:placeholder="Password"
                                class="form-control"/>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <div align="center" th:if="${param.error}">
-                            <p style="font-size: 20; color: #FF1C19;">UserName or Password invalid, please verify</p>
-                        </div>
-                    </div>
                     <div class="form-group">
-                        <div class="col-sm-9">
-                            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
+                        <div align="center" th:if="${param.error}">
+                            <p style="font-size: 20; color: #FF1C19;">UserName or Password invalid, please
+                                verify</p>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login"
+                                    type="Submit"
                                     th:text="Login"></button>
                         </div>
                     </div>
-            </form>
+                </form>
+            </div>
+            <div class="col-sm-4"></div>
         </div>
     </div>
 </div>
