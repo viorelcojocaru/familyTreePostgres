@@ -41,4 +41,8 @@ public class PersonService implements PersonServiceIntf {
     }
 
 
+    @Override
+    public boolean existPerson(Long id) {
+        return personRepository.existsById(id);
+    }
 }

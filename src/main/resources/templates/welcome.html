@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en-US" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/
 extras/spring-security" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8"/>
@@ -24,6 +24,10 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
         <div th:insert="~{header :: welcome}"> </div>
         <br>
         <br>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <h3>You will see this only if you are ADMIN</h3>
+            <p><a th:href="@{/admin}">Admin Home</a></p>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-3">

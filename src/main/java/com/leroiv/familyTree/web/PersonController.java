@@ -14,10 +14,7 @@ import java.util.Calendar;
 @RestController
 @RequestMapping("/")
 public class PersonController {
-
-
     private final PersonService personService;
-
 
     @Autowired
     public PersonController(PersonService personService) {
@@ -69,6 +66,14 @@ public class PersonController {
         personService.saveOrUpdate(person);
         return new ModelAndView();
     }
+    @GetMapping("/editPerson/delete/{id}")
+    public ModelAndView delete(@PathVariable Long id, ModelAndView modelAndView) {
+        Person person;
+        if (personService.existPerson(id))
+            personService.delete(id);
+        modelAndView.setViewName("/welcome");
+        return modelAndView;
 
+    }
 
 }

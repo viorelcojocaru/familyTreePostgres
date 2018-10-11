@@ -1,4 +1,4 @@
-package com.leroiv.familyTree.config;
+package com.leroiv.familyTree.service;
 
 import com.leroiv.familyTree.domain.User;
 import com.leroiv.familyTree.repository.UserRepository;
@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
-@Component("userDetailsService")
+//@Component("userDetailsService")
+@Service
+@Transactional
 public class DomainUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(DomainUserDetailsService.class);

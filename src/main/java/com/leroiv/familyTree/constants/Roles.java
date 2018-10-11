@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Roles {
-    public static final int ADMIN = 10, USER = 20, GUEST = 30;
+    public static final long ADMIN = 10, USER = 20, GUEST = 30;
 
     private static Set<Role> roles = new HashSet<>();
 @Autowired
