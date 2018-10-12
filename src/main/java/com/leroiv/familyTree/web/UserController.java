@@ -1,5 +1,6 @@
 package com.leroiv.familyTree.web;
 
+import com.leroiv.familyTree.constants.Genders;
 import com.leroiv.familyTree.constants.Pages;
 import com.leroiv.familyTree.constants.Roles;
 import com.leroiv.familyTree.domain.Contact;
@@ -51,6 +52,8 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User loggedUser = userService.findUserByUserName(auth.getName());
         Person person = loggedUser.getUserToPerson();
+        if (person==null)
+            person =new Person();
         if (loggedUser.getRoles().stream().anyMatch(role -> role.getId() == Roles.ADMIN)) {
             modelAndView.addObject("admin", person);
             modelAndView.setViewName("admin");
@@ -60,7 +63,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @GetMapping("/" + Pages.VIEW_REGISTRATION)
+   /* @GetMapping("/" + Pages.VIEW_REGISTRATION)
     public ModelAndView registration(ModelAndView modelAndView) {
         modelAndView.addObject("user", new User());
         modelAndView.setViewName("registration");
@@ -84,7 +87,7 @@ public class UserController {
             return loginController.login(new ModelAndView());
         }
         return modelAndView;
-    }
+    }*/
 
     @GetMapping(Pages.VIEW_WELCOME)
     public ModelAndView welcome(ModelAndView modelAndView) {
@@ -92,10 +95,15 @@ public class UserController {
         modelAndView.setViewName("welcome");
         User user = userService.findUserByUserName(auth.getName());
         Person person = user.getUserToPerson();
+        if (person==null){
+            person=new Person();
+            person.setGender(Genders.UNDEFINED);
+        }
         Contact contact = person.getContact();
         if (contact == null) {
             contact = new Contact();
         }
+
         modelAndView.addObject("genders", person.getGenders());
         modelAndView.addObject("person", person);
         modelAndView.addObject("persons", personService.listAll());

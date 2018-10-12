@@ -4,6 +4,7 @@ import com.leroiv.familyTree.domain.Contact;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -66,13 +67,16 @@ public class PersonController {
         personService.saveOrUpdate(person);
         return new ModelAndView();
     }
-    @GetMapping("/editPerson/delete/{id}")
+    @Autowired
+    UserController userController;
+    @Secured("ADMIN")
+    @GetMapping("/editPerson/delete/id/{id}")
     public ModelAndView delete(@PathVariable Long id, ModelAndView modelAndView) {
         Person person;
         if (personService.existPerson(id))
             personService.delete(id);
         modelAndView.setViewName("/welcome");
-        return modelAndView;
+        return userController.welcome(modelAndView);
 
     }
 

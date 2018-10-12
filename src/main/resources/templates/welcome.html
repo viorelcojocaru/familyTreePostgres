@@ -1,6 +1,7 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/
-extras/spring-security" xmlns="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html"/>
@@ -24,7 +25,7 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
         <div th:insert="~{header :: welcome}"> </div>
         <br>
         <br>
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div sec:authorize="hasAuthority('ADMIN')">
             <h3>You will see this only if you are ADMIN</h3>
             <p><a th:href="@{/admin}">Admin Home</a></p>
         </div>
@@ -135,7 +136,7 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
             </div>
         </div>
         <div class="col-md-8">
-            <br>  <a th:href="@{'editPerson/id/0'}" class="btn btn-primary eBtn">New Person</a>
+            <br>  <a th:href="@{'/editPerson/id/0'}" class="btn btn-primary eBtn" sec:authorize="hasAuthority('ADMIN')">New Person</a>
             <br>
             <br>
             <br>

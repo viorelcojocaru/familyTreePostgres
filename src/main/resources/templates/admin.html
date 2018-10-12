@@ -12,16 +12,15 @@ css"></link>
 <body>
 <div class="container">
     <h1>Family Tree Admin page</h1>
-    <p sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out"/>
-    </form>
+    <p>Welcome Administrator(<span sec:authentication="principal.username">User</span>)</p>
+    <p><a th:href="@{/logout}">Logout</a></p>
     </p>
     <div class="content">
         <p th:if="${param.logout}" class="alert">You have been logged out</p>s
         <p th:if="${param.error}" class="alert alert-error">There was an error, please
             try again</p>
        <h2>welcome Admin role page <span th:text="${admin.firstName}"/><span th:text="${admin.lastName}"/></h2>
+
 
     </div>
 </div>

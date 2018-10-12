@@ -1,6 +1,5 @@
 package com.leroiv.familyTree.config;
 
-import com.leroiv.familyTree.service.CustomUserDetailsService;
 import com.leroiv.familyTree.service.DomainUserDetailsService;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
 import javax.annotation.PostConstruct;
 
@@ -100,5 +100,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/vendor/**")
                 .antMatchers("/h2-console/**");
     }
+
+    @Bean
+    public SpringSecurityDialect springSecurityDialect() {
+        return new SpringSecurityDialect();
+    }
+
+
 
 }

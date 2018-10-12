@@ -3,6 +3,7 @@ package com.leroiv.familyTree.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +18,7 @@ public class User implements Serializable {
     private Long id;
     @Column(name = "user_name")
     private String userName;
-
+    @Size(min=6, max=10)
     private String password;
 
     @Transient
