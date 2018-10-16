@@ -58,13 +58,10 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td th:each="currentGender : ${genders}">
-                                        <input type="radio" th:field="*{currentGender}"
-                                               th:value="${currentGender}"/>
-                                        <label th:for="${#ids.prev('currentGender')}"
-                                               th:text="${currentGender.name}"></label>
-                                        <input type="radio" th:field="*{gender}" value="Male"/>
-                                        <input type="radio" th:field="*{gender}" value="Female"/>
+                                  <td>
+                                        <input type="radio" th:field="*{gender}" th:value=10 th:text="Male"/>
+                                        <input type="radio" th:field="*{gender}" th:value=20 th:text="Female"/>
+                                        <input type="radio" th:field="*{gender}" th:value=30 th:text="Undefined"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -148,13 +145,14 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label>Country</label>
+                                        <span th:text="${contact.country}"></span>
+                                   <!-- <label>Country</label>&ndash;&gt;
                                        <select th:field="*{country}">
-                                        <option th:each="country : ${countys}"
-                                                th:value="${country}"
-                                                th:text="#{${'contact.country.' + country}}">${country.name}
+                                        <option th:each="country : ${countrys}"
+                                                th:value="*{country}"
+                                                th:text="#{${'contact.country.' + country}}" >
                                         </option>
-                                    </select>
+                                    </select>-->
                                     </td>
                                 </tr>
                             </table>

@@ -1,7 +1,8 @@
 package com.leroiv.familyTree.service;
 
-import com.leroiv.familyTree.domain.User;
+/*import com.leroiv.familyTree.domain.User;
 import com.leroiv.familyTree.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -14,8 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collection;
 @Service
 @Transactional
-public class CustomUserDetailsService implements UserDetailsService {
-    @Autowired
+@RequiredArgsConstructor*/
+public class CustomUserDetailsService /*implements UserDetailsService*/ {
+/*
     private UserRepository userRepository;
 
     @Override
@@ -36,5 +38,5 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .toArray(String[]::new);
         Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
         return authorities;
-    }
+    }*/
 }

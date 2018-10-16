@@ -4,9 +4,9 @@
 <head>
     <title>Registration Form familyTree project</title>
 
-   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-grid.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-reboot.css}">
@@ -14,43 +14,38 @@
     <script type="text/javascript" th:src="@{/js/bootstrap.bundle.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
 </head>
-<body>
+<body class="text-center">
 <form th:action="@{/login}" method="get">
     <button class="btn btn-md btn-warning btn-block" type="Submit">Go To Login Page</button>
 </form>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
             <form autocomplete="off" action="#" th:action="@{/registration}"
                   th:object="${user}" method="post" class="form-horizontal"
                   role="form">
                 <h2>Registration Form</h2>
                 <div class="form-group">
-                    <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
-                               class="validation-message"></label>
-                        <input type="text" th:field="*{userName}" placeholder="login"
-                               class="form-control" />
-                    </div>
+                    <label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"
+                           class="validation-message"></label>
+                    <input type="text" th:field="*{userName}" placeholder="login"
+                           class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('userToPerson.firstName')}" th:errors="*{userToPerson.firstName}"
-                               class="validation-message"></label>
-                        <input type="text" th:field="*{userToPerson.firstName}" placeholder="First Name"
-                               class="form-control" />
-                    </div>
+                    <label th:if="${#fields.hasErrors('userToPerson.firstName')}" th:errors="*{userToPerson.firstName}"
+                           class="validation-message"></label>
+                    <input type="text" th:field="*{userToPerson.firstName}" placeholder="First Name"
+                           class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label th:if="${#fields.hasErrors('userToPerson.lastName')}" th:errors="*{userToPerson.lastName}"
+                           class="validation-message"></label>
+                    <input type="text" th:field="*{userToPerson.lastName}"
+                           placeholder="Last Name" class="form-control"/>
                 </div>
 
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label	th:if="${#fields.hasErrors('userToPerson.lastName')}" th:errors="*{userToPerson.lastName}"
-                                  class="validation-message"></label>
-                        <input type="text" th:field="*{userToPerson.lastName}"
-                               placeholder="Last Name" class="form-control" />
-                    </div>
-                </div>
                 <!-- &lt;!&ndash; <div class="form-group">
                       <div class="col-sm-9">
                           <input type="text" th:field="*{userToPerson.email}" placeholder="Email"
@@ -60,32 +55,24 @@
                       </div>
                   </div>&ndash;&gt;-->
                 <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="password" th:field="*{password}"
-                               placeholder="Password" class="form-control" /> <label
-                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                            class="validation-message"></label>
-                    </div>
+                    <input type="password" th:field="*{password}"
+                           placeholder="Password" class="form-control"/> <label
+                        th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                        class="validation-message"></label>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="password" th:field="*{confirmPassword}"
-                               placeholder="Confirm Password" class="form-control" /> <label
-                            th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
-                            class="validation-message"></label>
-                    </div>
+                    <input type="password" th:field="*{confirmPassword}"
+                           placeholder="Confirm Password" class="form-control"/> <label
+                        th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                        class="validation-message"></label>
                 </div>
-
                 <div class="form-group">
-                    <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Register User</button>
-                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Register User</button>
                 </div>
-
                 <span th:utext="${successMessage}"></span>
-
             </form>
         </div>
+        <div class="col-sm-4"></div>
     </div>
 </div>
 

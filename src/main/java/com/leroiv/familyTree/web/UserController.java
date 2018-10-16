@@ -9,17 +9,14 @@ import com.leroiv.familyTree.domain.User;
 import com.leroiv.familyTree.service.CountryService;
 import com.leroiv.familyTree.service.PersonService;
 import com.leroiv.familyTree.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.Calendar;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
@@ -29,23 +26,12 @@ import java.util.Calendar;
 
 @RestController
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class UserController {
 
     private final CountryService countryService;
     private final UserService userService;
     private final PersonService personService;
-    @Autowired
-    private LoginController loginController;
-
-    @Autowired
-    public UserController(CountryService countryService,
-                          UserService userService,
-                          PersonService personService) {
-        this.personService = personService;
-        this.countryService = countryService;
-        this.userService = userService;
-    }
-
 
     @GetMapping("/admin")
     public ModelAndView admin(ModelAndView modelAndView) {
@@ -104,7 +90,6 @@ public class UserController {
             contact = new Contact();
         }
 
-        modelAndView.addObject("genders", person.getGenders());
         modelAndView.addObject("person", person);
         modelAndView.addObject("persons", personService.listAll());
         modelAndView.addObject("contact", contact);
@@ -115,14 +100,14 @@ public class UserController {
         return modelAndView;
     }
 
-    @PostMapping(Pages.VIEW_WELCOME)
+    /*@PostMapping(Pages.VIEW_WELCOME)
     public ModelAndView newPerson(@Valid Person person, BindingResult bindingResult, ModelAndView modelAndView) {
         modelAndView.setViewName("welcome");
         person.setGender(person.getCurrentGender().getId().intValue());
         personService.saveOrUpdate(person);
         modelAndView.addObject("successMessage", "Person " + person.getFirstName() + " " + person.getLastName() + "has been saved successfully");
         return welcome(modelAndView);
-    }
+    }*/
 
 
 }

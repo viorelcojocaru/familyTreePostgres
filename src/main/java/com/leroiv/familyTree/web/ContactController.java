@@ -27,7 +27,7 @@ public class ContactController {
     @PostMapping("/editPersonContactSave")
     public ModelAndView savePerson(@Valid Contact contact, BindingResult result) {
         contactService.saveOrUpdate(contact);
-        return personController.edit(contact.getPerson().getId(), new ModelAndView());
+        return personController.getPersonById(contact.getPerson().getId(), new ModelAndView());
     }
 
 }

@@ -3,6 +3,7 @@ package com.leroiv.familyTree;
 import com.leroiv.familyTree.repository.RoleRepository;
 import com.leroiv.familyTree.service.CountryService;
 import com.leroiv.familyTree.service.PersonService;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@Slf4j
 public class FamilyTreeApplication {
 //	private static final Logger log = LoggerFactory.getLogger(FamilyTreeApplication.class);
 	public static void main(String[] args) {

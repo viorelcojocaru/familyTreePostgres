@@ -16,9 +16,11 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "user_name")
     private String userName;
-    @Size(min=6, max=10)
+
+    //@Size(min=6, max=10)
     private String password;
 
     @Transient
@@ -32,6 +34,7 @@ public class User implements Serializable {
 
     @Transient
     private String encryptedPassword;
+
     @Transient
     private Integer failedLoginAttempts = 0;
 
