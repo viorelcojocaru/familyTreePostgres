@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Optional;
+
 @Component
 public class UserValidator implements Validator {
 
@@ -29,18 +31,22 @@ public class UserValidator implements Validator {
                     new Object[]{userName},
                     "User name " + userName + " already in use");
         }
-        String passwors=user.getPassword();
-        if (!passwors.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}$")){
+        String password=user.getPassword();
+        if (Optional.ofNullable(password).isPresent()){
+            errors.rejectValue("password", "password.Empty", new Object[]{password},"Password  is required");
+        }
+        if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}$")){
             errors.rejectValue("password",
                     "password.Pattern",
-                    new Object[]{passwors},
+                    new Object[]{password},
                     "Password  is required to be minimum six characters, at least one letter and one number.");
         }
-        if (passwors.length()<6 || passwors.length()>10){
+        if (password.length()<6 || password.length()>10){
             errors.rejectValue("password",
                     "password.Size",
-                    new Object[]{passwors},
+                    new Object[]{password},
                     "Password  size is required to be between 6 and 10 characters.");
         }
     }
+
 }

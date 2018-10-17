@@ -6,7 +6,6 @@ import com.leroiv.familyTree.constants.Roles;
 import com.leroiv.familyTree.domain.Contact;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
-import com.leroiv.familyTree.service.CountryService;
 import com.leroiv.familyTree.service.PersonService;
 import com.leroiv.familyTree.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,6 @@ import java.util.Calendar;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final CountryService countryService;
     private final UserService userService;
     private final PersonService personService;
 
@@ -38,8 +36,8 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User loggedUser = userService.findUserByUserName(auth.getName());
         Person person = loggedUser.getUserToPerson();
-        if (person==null)
-            person =new Person();
+        if (person == null)
+            person = new Person();
         if (loggedUser.getRoles().stream().anyMatch(role -> role.getId() == Roles.ADMIN)) {
             modelAndView.addObject("admin", person);
             modelAndView.setViewName("admin");
@@ -49,40 +47,14 @@ public class UserController {
         return modelAndView;
     }
 
-   /* @GetMapping("/" + Pages.VIEW_REGISTRATION)
-    public ModelAndView registration(ModelAndView modelAndView) {
-        modelAndView.addObject("user", new User());
-        modelAndView.setViewName("registration");
-        return modelAndView;
-    }
-
-    @PostMapping(Pages.VIEW_REGISTRATION)
-    public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult, ModelAndView modelAndView) {
-        User userExists = userService.findUserByUserName(user.getUserName());
-        if (userExists != null) {
-            bindingResult
-                    .rejectValue("error.user",
-                            "There is already a user registered with the email provided");
-        }
-        if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
-        } else {
-            personService.saveOrUpdate(user.getUserToPerson());
-            userService.saveOrUpdate(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            return loginController.login(new ModelAndView());
-        }
-        return modelAndView;
-    }*/
-
     @GetMapping(Pages.VIEW_WELCOME)
     public ModelAndView welcome(ModelAndView modelAndView) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         modelAndView.setViewName("welcome");
         User user = userService.findUserByUserName(auth.getName());
         Person person = user.getUserToPerson();
-        if (person==null){
-            person=new Person();
+        if (person == null) {
+            person = new Person();
             person.setGender(Genders.UNDEFINED);
         }
         Contact contact = person.getContact();
@@ -95,19 +67,7 @@ public class UserController {
         modelAndView.addObject("contact", contact);
         Calendar calendars = Calendar.getInstance();
         modelAndView.addObject("calendars", calendars);
-
-
         return modelAndView;
     }
-
-    /*@PostMapping(Pages.VIEW_WELCOME)
-    public ModelAndView newPerson(@Valid Person person, BindingResult bindingResult, ModelAndView modelAndView) {
-        modelAndView.setViewName("welcome");
-        person.setGender(person.getCurrentGender().getId().intValue());
-        personService.saveOrUpdate(person);
-        modelAndView.addObject("successMessage", "Person " + person.getFirstName() + " " + person.getLastName() + "has been saved successfully");
-        return welcome(modelAndView);
-    }*/
-
 
 }

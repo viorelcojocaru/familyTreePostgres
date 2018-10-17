@@ -1,16 +1,14 @@
 package com.leroiv.familyTree.domain;
 
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 @Entity
-@Table(name = "app_account")//can be done in configuration file _
+@Table(name = "app_account")
+@Builder
 public class AppAccount {
 
     @Id
@@ -20,11 +18,11 @@ public class AppAccount {
 
     @ManyToOne(targetEntity = Person.class)
     @JoinColumn(name = "person_Id", referencedColumnName = "id")
-    private Person personId;
+    private Person person;
 
     @ManyToOne(targetEntity = AppAccountType.class)
     @JoinColumn(name = "type_Id", referencedColumnName = "id")
-    private AppAccountType typeId;
+    private AppAccountType type;
 
     private String name;
 }

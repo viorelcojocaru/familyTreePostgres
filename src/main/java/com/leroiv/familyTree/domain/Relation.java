@@ -6,10 +6,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-//@AllArgsConstructor("a")
 @Entity(name = "familyTree")
 @Table(name = "relation")
+@RequiredArgsConstructor
 public class Relation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

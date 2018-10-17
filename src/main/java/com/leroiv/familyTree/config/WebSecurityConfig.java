@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void init() {
         try {
             authenticationManagerBuilder
-                    .authenticationProvider(customAuthenticationProvider)
+//                    .authenticationProvider(customAuthenticationProvider)
                     .userDetailsService(customUserDetailsService)
                     .passwordEncoder(passwordEncoder());
         } catch (Exception e) {
@@ -73,7 +73,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage(LOGIN_PAGE)
                 .failureUrl("/login?error=true")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/welcome")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and()

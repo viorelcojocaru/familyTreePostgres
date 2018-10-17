@@ -18,10 +18,12 @@
 
                 </div>
                 <div class=" col-md-4">
-                    <p sec:authorize="isAuthenticated()"></p>
-                    <form th:action="@{/logout}" method="post">
+                    <p sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}">Logout</a>
+                    </p>
+                    <!--<form th:action="@{/logout}" method="post">
                         <input type="submit" value="Sign Out"/>
-                    </form>
+                    </form>-->
                 </div>
             </div>
         </div>

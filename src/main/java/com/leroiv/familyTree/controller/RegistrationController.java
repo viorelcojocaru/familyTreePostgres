@@ -1,7 +1,12 @@
 package com.leroiv.familyTree.controller;
 
+import com.leroiv.familyTree.BC.AccountBC;
+import com.leroiv.familyTree.constants.AppAcountTypes;
 import com.leroiv.familyTree.constants.Pages;
+import com.leroiv.familyTree.domain.AppAccountType;
+import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
+import com.leroiv.familyTree.service.AppAccountTypeService;
 import com.leroiv.familyTree.service.PersonService;
 import com.leroiv.familyTree.service.UserService;
 import com.leroiv.familyTree.validation.UserValidator;
@@ -21,6 +26,7 @@ public class RegistrationController {
     private final UserValidator userValidator;
     private final UserService userService;
     private final PersonService personService;
+    private final AppAccountTypeService appAccountTypeService;
 
     @GetMapping(Pages.VIEW_REGISTRATION)
     public ModelAndView registration(ModelAndView modelAndView) {
@@ -35,8 +41,10 @@ public class RegistrationController {
         if (bindingResult.hasErrors()) {
             return "/registration";
         }
-        personService.saveOrUpdate(user.getUserToPerson());
+        Person person=user.getUserToPerson();
+        personService.saveOrUpdate(person);
         userService.saveOrUpdate(user);
+        AccountBC.getInstance().createAppAccount(person, appAccountTypeService.getById(AppAcountTypes.ROOT));
         return "redirect:/login";
 
     }

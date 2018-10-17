@@ -87,8 +87,7 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
                                 </tr>
                             </table>
                             <button type="submit" class="btn btn-primary btn-block">Save</button>
-                           <button type="submit" class="btn btn-primary btn-block" name="remove"
-                                                th:value="${id}">Remove</button>
+                            <a th:href="@{'/editPerson/delete/id/'+*{id}}" class="btn btn-primary btn-block" >Delete</a>
                         </form>
                     </div>
                 </div>
@@ -100,6 +99,7 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
                               th:object="${contact}" method="post" role="form">
                             <input th:field="*{id}" hidden="true"/>
                             <input th:field="*{person}" hidden="true"/>
+                            <input th:field="*{source}" hidden="true"/>
                             <table class="formTable">
                                 <tr>
                                     <td>
@@ -174,29 +174,7 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
             <br>
             <br>
             <div th:insert="~{personList :: personList}"></div>
-            <!-- &lt;!&ndash;<a th:href="@{../'delete/id/'+${entry.id}}" class="btn btn-primary eBtn" >Delete</a>&ndash;&gt;
-
-            &lt;!&ndash;<form action="#" th:action="@{/editPersonAddCild}" th:object="${addCild}" method="POSt">
-                <button type="submit" class="btn  btn-block">add Cild</button>
-            </form>
-            <form action="#" th:action="@{/editPersonAddParentOrEx}" th:object="${addParentOrEx}"
-                  method="POSt">
-                <button type="submit" class="btn  btn-block">add Parent/Ex</button>
-            </form>
-            <form action="#" th:action="@{/editPersonAddBrotherOrSister}" th:object="${addBrotherOrSister}"
-                  method="POSt">
-                <button type="submit" class="btn  btn-block">add Brother/Sister</button>
-            </form>
-            <form action="#" th:action="@{/editPersonAddParents}" th:object="${addParents}" method="POSt">
-                <button type="submit" class="btn  btn-block">add Parents</button>
-            </form>
-            <form action="#" th:action="@{/editPersonDeletePerson}" th:object="${deletePerson}"
-                  method="POSt">
-                <button type="submit" class="btn  btn-block">Delete Person</button>
-            </form>&ndash;&gt;-->
-
-
-        </div>
+         </div>
     </div>
 </div>
 <div class="panel-footer">
