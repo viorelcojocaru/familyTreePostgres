@@ -58,4 +58,8 @@ public class Person implements Serializable {
     @JsonManagedReference
     private Contact contact;
 
+    @OneToOne(mappedBy = "person")
+    @JsonManagedReference
+    private AppAccount appAccount;
+
 }

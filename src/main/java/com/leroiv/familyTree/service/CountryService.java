@@ -4,7 +4,6 @@ import com.leroiv.familyTree.domain.Country;
 import com.leroiv.familyTree.repository.CountryRepository;
 import com.leroiv.familyTree.service.intf.CountryServiceIntf;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,26 +12,30 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CountryService implements CountryServiceIntf {
 
-    private final CountryRepository repository;
+    private final CountryRepository countryRepository;
 
 
     @Override
     public List<Country> listAll() {
-        return repository.findAll();
+        return countryRepository.findAll();
     }
 
     @Override
     public Country getById(Long id) {
-        return repository.getOne(id);
+        return countryRepository.getOne(id);
     }
 
     @Override
     public Country saveOrUpdate(Country country) {
-        return repository.save(country);
+        return countryRepository.save(country);
     }
 
     @Override
     public void delete(Long id) {
 
+    }
+    @Override
+    public boolean existEntry(Long id) {
+        return countryRepository.existsById(id);
     }
 }

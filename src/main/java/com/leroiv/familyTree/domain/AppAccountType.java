@@ -1,9 +1,12 @@
 package com.leroiv.familyTree.domain;
 
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity(name = "familyTree")
 @Table(name = "app_account_type")
+@RequiredArgsConstructor
 public class AppAccountType {
 
     private String name;
@@ -11,9 +14,6 @@ public class AppAccountType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    AppAccountType(int id, String name) {
-    }
 
     public Long getId() {
         return id;

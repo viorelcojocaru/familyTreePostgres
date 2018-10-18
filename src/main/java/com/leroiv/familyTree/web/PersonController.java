@@ -1,7 +1,7 @@
 package com.leroiv.familyTree.web;
 
 import com.leroiv.familyTree.BC.AccountBC;
-import com.leroiv.familyTree.constants.AppAcountTypes;
+import com.leroiv.familyTree.constants.AppAccountTypes;
 import com.leroiv.familyTree.constants.Genders;
 import com.leroiv.familyTree.constants.Pages;
 import com.leroiv.familyTree.controller.ResourceNotFoundException;
@@ -122,12 +122,11 @@ public class PersonController {
         return "redirect:/welcome";
     }
 
-    //    @GetMapping("/editPerson/id/{id}/addCild")
     @GetMapping("/viewPerson/id/{id}/addCild")
     public ModelAndView addCild(@PathVariable Long id, Long type, ModelAndView modelAndView) {
         if (personService.existPerson(id)) {
             modelAndView.addObject("source", personService.getById(id));
-            modelAndView.addObject("type", AppAcountTypes.CILD);
+            modelAndView.addObject("type", AppAccountTypes.CILD);
             modelAndView.setViewName("redirect:/editPerson/id/0");
 
         } else

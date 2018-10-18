@@ -1,11 +1,9 @@
 package com.leroiv.familyTree.service;
 
-import com.leroiv.familyTree.domain.AppAccount;
 import com.leroiv.familyTree.domain.AppAccountType;
 import com.leroiv.familyTree.repository.AppAccountTypeRepository;
 import com.leroiv.familyTree.service.intf.AppAccountTypeServiceIntf;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,26 +12,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppAccountTypeService implements AppAccountTypeServiceIntf {
 
-    private final AppAccountTypeRepository repo;
+    private final AppAccountTypeRepository appAccountTypeRepository;
 
     @Override
     public List<AppAccountType> listAll() {
-        return repo.findAll();
+        return appAccountTypeRepository.findAll();
+    }
+
+    @Override
+    public boolean existEntry(Long id) {
+        return appAccountTypeRepository.existsById(id);
     }
 
     @Override
     public AppAccountType getById(Long id) {
-        return repo.getOne(id);
+        return appAccountTypeRepository.getOne(id);
     }
 
     @Override
     public AppAccountType saveOrUpdate(AppAccountType appAccountType) {
-        return repo.save(appAccountType);
+        return appAccountTypeRepository.save(appAccountType);
     }
 
     @Override
     public void delete(Long id) {
-        repo.deleteById(id);
+        appAccountTypeRepository.deleteById(id);
     }
 
 

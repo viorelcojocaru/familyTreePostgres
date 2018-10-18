@@ -3,13 +3,10 @@ package com.leroiv.familyTree.service;
 import com.leroiv.familyTree.domain.Role;
 import com.leroiv.familyTree.repository.RoleRepository;
 import com.leroiv.familyTree.service.intf.RoleServiceIntf;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class RoleService implements RoleServiceIntf {
@@ -40,5 +37,9 @@ public class RoleService implements RoleServiceIntf {
 
     public  String getRoleName( int roleId) {
         return listAll().stream().filter(role -> role.getId().intValue()==roleId).findAny().orElse(null).getName();
+    }
+    @Override
+    public boolean existEntry(Long id) {
+        return roleRepository.existsById(id);
     }
 }

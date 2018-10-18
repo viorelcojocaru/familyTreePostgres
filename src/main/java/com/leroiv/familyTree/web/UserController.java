@@ -11,11 +11,14 @@ import com.leroiv.familyTree.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.Calendar;
 /*
  * Controller for {@link com.leroiv.familyTree.domain.User}'s pages
@@ -69,5 +72,6 @@ public class UserController {
         modelAndView.addObject("calendars", calendars);
         return modelAndView;
     }
+
 
 }

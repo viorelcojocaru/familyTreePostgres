@@ -3,10 +3,7 @@ package com.leroiv.familyTree.service;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.repository.PersonRepository;
 import com.leroiv.familyTree.service.intf.PersonServiceIntf;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,14 +17,14 @@ public class PersonService implements PersonServiceIntf {
 
     @Override
     public List<Person> listAll() {
-        List<Person> persons=new ArrayList<>();
+        List<Person> persons = new ArrayList<>();
         personRepository.findAll().forEach(persons::add);
         return persons;
     }
 
     @Override
     public Person getById(Long id) {
-        Person person=personRepository.findById(id).get();
+        Person person = personRepository.findById(id).get();
         return person;
     }
 
@@ -43,7 +40,8 @@ public class PersonService implements PersonServiceIntf {
 
 
     @Override
-    public boolean existPerson(Long id) {
+    public boolean existEntry(Long id) {
         return personRepository.existsById(id);
     }
+
 }

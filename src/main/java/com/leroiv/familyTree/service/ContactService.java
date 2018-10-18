@@ -34,4 +34,8 @@ public class ContactService implements ContactServiceIntf {
     public void delete(Long id) {
 
     }
+    @Override
+    public boolean existEntry(Long id) {
+        return contactRepository.existsById(id);
+    }
 }

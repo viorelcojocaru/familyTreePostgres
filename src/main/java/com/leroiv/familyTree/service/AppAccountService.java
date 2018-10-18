@@ -12,29 +12,34 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppAccountService implements AppAccountServiceIntf {
 
-    private final AppAccountRepository repo;
+    private final AppAccountRepository appAccountRepository;
 
     @Override
     public List<AppAccount> listAll() {
-        return repo.findAll();
+        return appAccountRepository.findAll();
+    }
+
+    @Override
+    public boolean existEntry(Long id) {
+        return appAccountRepository.existsById(id);
     }
 
     @Override
     public AppAccount getById(Long id) {
-        return repo.getOne(id);
+        return appAccountRepository.getOne(id);
     }
 
     @Override
     public AppAccount saveOrUpdate(AppAccount appAccount) {
-        return repo.save(appAccount);
+        return appAccountRepository.save(appAccount);
     }
 
     @Override
     public void delete(Long id) {
-        repo.deleteById(id);
+        appAccountRepository.deleteById(id);
     }
 
     public AppAccount getAppAccountBy(long personId, long typeId){
-        return repo.getAppAccountBy(personId, typeId);
+        return null;//appAccountRepository.getAppAccountBy(personId, typeId);
     }
 }

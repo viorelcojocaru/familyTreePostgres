@@ -38,6 +38,11 @@ public class UserService implements UserServiceIntf {
     }
 
     @Override
+    public boolean existEntry(Long id) {
+        return userRepository.existsById(id);
+    }
+
+    @Override
     public User getById(Long id) {
         return userRepository.getOne(id);
     }

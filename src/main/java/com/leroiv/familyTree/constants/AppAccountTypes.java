@@ -1,6 +1,6 @@
 package com.leroiv.familyTree.constants;
 
-public class AppAcountTypes {
+public class AppAccountTypes {
 
     public final static long
             ROOT = 1,

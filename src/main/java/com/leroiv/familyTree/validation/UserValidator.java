@@ -31,22 +31,32 @@ public class UserValidator implements Validator {
                     new Object[]{userName},
                     "User name " + userName + " already in use");
         }
-        String password=user.getPassword();
-        if (Optional.ofNullable(password).isPresent()){
-            errors.rejectValue("password", "password.Empty", new Object[]{password},"Password  is required");
+        String password = user.getPassword();
+        if (password == null || password.isEmpty()) {
+            errors.rejectValue("password", "password.Empty", new Object[]{password}, "Password  is required");
+        } else {
+            if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}$")) {
+                errors.rejectValue("password",
+                        "password.Pattern",
+                        new Object[]{password},
+                        "Password  is required to be minimum six characters, at least one letter and one number.");
+            }
+            if (password.length() < 6 || password.length() > 10) {
+                errors.rejectValue("password",
+                        "password.Size",
+                        new Object[]{password},
+                        "Password  size is required to be between 6 and 10 characters.");
+            }
+
+            String confirmPassword = user.getConfirmPassword();
+            if (confirmPassword == null || confirmPassword.isEmpty()) {
+                errors.rejectValue("confirmPassword", "confirmPassword.Empty", new Object[]{confirmPassword}, "ConfirmPassword is required");
+            }
+            if (confirmPassword != null && !confirmPassword.equals(password)) {
+                errors.rejectValue("confirmPassword", "confirmPassword.NotEqual", new Object[]{confirmPassword}, "Password and ConfirmPassword not matches");
+            }
         }
-        if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,10}$")){
-            errors.rejectValue("password",
-                    "password.Pattern",
-                    new Object[]{password},
-                    "Password  is required to be minimum six characters, at least one letter and one number.");
-        }
-        if (password.length()<6 || password.length()>10){
-            errors.rejectValue("password",
-                    "password.Size",
-                    new Object[]{password},
-                    "Password  size is required to be between 6 and 10 characters.");
-        }
+
     }
 
 }

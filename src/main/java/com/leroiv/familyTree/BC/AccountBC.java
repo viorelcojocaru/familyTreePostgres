@@ -1,5 +1,6 @@
 package com.leroiv.familyTree.BC;
 
+import com.leroiv.familyTree.constants.AppAccountTypes;
 import com.leroiv.familyTree.constants.Genders;
 import com.leroiv.familyTree.domain.AppAccount;
 import com.leroiv.familyTree.domain.AppAccountType;
@@ -10,8 +11,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-//@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@RequiredArgsConstructor
+import java.util.HashMap;
+import java.util.Map;
+
 public class AccountBC {
     private static AccountBC instance;
 
@@ -42,5 +44,19 @@ public class AccountBC {
         }else
             throw new Exception("relation are null");
     }
+    public Map<String ,AppAccount> getFromToAppAccountMap(AppAccount from, AppAccount to, long typeId){
+        Map<String ,AppAccount> map=new HashMap<>();
+        switch ((int)typeId){
+            case (int)AppAccountTypes.CILD:
+                ;
+            break;
+            case (int)AppAccountTypes.PARTNER :
+                ;
+            break;
+            default: ;
+        }
+        return map;
+    }
+
 
 }
