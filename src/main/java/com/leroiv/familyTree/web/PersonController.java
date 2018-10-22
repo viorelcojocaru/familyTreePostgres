@@ -6,10 +6,9 @@ import com.leroiv.familyTree.constants.Genders;
 import com.leroiv.familyTree.constants.Pages;
 import com.leroiv.familyTree.controller.ResourceNotFoundException;
 import com.leroiv.familyTree.domain.*;
-import com.leroiv.familyTree.service.AppAccountService;
-import com.leroiv.familyTree.service.AppAccountTypeService;
-import com.leroiv.familyTree.service.CountryService;
-import com.leroiv.familyTree.service.PersonService;
+import com.leroiv.familyTree.repository.UserToPersonRepository;
+import com.leroiv.familyTree.repository.UserToRoleRepository;
+import com.leroiv.familyTree.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
@@ -29,6 +28,10 @@ public class PersonController {
     private final CountryService countryService;
     private final AppAccountService appAccountService;
     private final AppAccountTypeService appAccountTypeService;
+    private final AccountBC accountBC;
+    private final UserToPersonRepository userToPersonRepository;
+    private final UserToRoleRepository userToRoleRepository;
+    private final UserService userService;
 
     @GetMapping("/editPerson/id/{id}")
     public ModelAndView getPersonById(@PathVariable Long id, ModelAndView modelAndView) {
@@ -42,7 +45,7 @@ public class PersonController {
         if (id == 0)
             person = new Person();
         else {
-            if (!personService.existPerson(id))
+            if (!personService.existEntry(id))
                 throw new ResourceNotFoundException("not found person with id:" + id);
             person = personService.getById(id);
         }
@@ -59,6 +62,7 @@ public class PersonController {
         modelAndView.addObject("countrys", countrys);
         Calendar calendars = Calendar.getInstance();
         modelAndView.addObject("calendars", calendars);
+        modelAndView.addObject("source", person);
         return modelAndView;
     }
 
@@ -70,32 +74,64 @@ public class PersonController {
     }
 
     @PostMapping(value = "/editPerson/save")
-    public ModelAndView save(@Valid Person person, Person source, Long typeId, BindingResult bindingResult, ModelAndView modelAndView) {
-
-        if (source != null) {
-            personService.saveOrUpdate(person);
-            AppAccount currentAppAcc = AccountBC.getInstance().createAppAccount(person, appAccountTypeService.getById(typeId));
+    public ModelAndView save(@Valid Person person, BindingResult bindingResult, ModelAndView modelAndView) {
+       // System.out.println(sourceId); , Long sourceId
+      //  System.out.println(typeId); ,  Long typeId
+       // personService.saveOrUpdate(person);
+        System.out.println(person);
+        /*if ( false) {
+            AppAccount currentAppAcc = accountBC.createAppAccount(person, appAccountTypeService.getById(typeId));
             appAccountService.saveOrUpdate(currentAppAcc);
             AppAccount appAccountFrom = null;
             AppAccount appAccountTo = null;
 
             if (person.getGender() == Genders.FEMALE) {
                 appAccountFrom = currentAppAcc;
-                appAccountTo = appAccountService.getAppAccountBy(source.getId(), typeId);
+                appAccountTo = appAccountService.getAppAccountBy(sourceId, typeId);
             } else if (person.getGender() == Genders.MALE) {
-                appAccountFrom = appAccountService.getAppAccountBy(source.getId(), typeId);
+                appAccountFrom = appAccountService.getAppAccountBy(sourceId, typeId);
                 appAccountTo = currentAppAcc;
             }
             try {
-                AccountBC.getInstance().createRelation(appAccountFrom, appAccountTo);
+                accountBC.createRelation(appAccountFrom, appAccountTo);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        modelAndView.addObject("person", person);
-        modelAndView.setViewName("redirect:/viewPerson/id/" + person.getId());
+        }*/
+       // modelAndView.addObject("person", person);
+       // modelAndView.setViewName("redirect:/viewPerson/id/" + person.getId());
         return modelAndView;
     }
+
+   // @PostMapping(value = "/editPerson/save")
+  //  public ModelAndView saveCild(@Valid Person person, String sourceId,  String typeId, BindingResult bindingResult, ModelAndView modelAndView) {
+
+       // personService.saveOrUpdate(person);
+//        System.out.println(sourceId);
+//        System.out.println(typeId);
+        /*if ( false) {
+            AppAccount currentAppAcc = accountBC.createAppAccount(person, appAccountTypeService.getById(typeId));
+            appAccountService.saveOrUpdate(currentAppAcc);
+            AppAccount appAccountFrom = null;
+            AppAccount appAccountTo = null;
+
+            if (person.getGender() == Genders.FEMALE) {
+                appAccountFrom = currentAppAcc;
+                appAccountTo = appAccountService.getAppAccountBy(sourceId, typeId);
+            } else if (person.getGender() == Genders.MALE) {
+                appAccountFrom = appAccountService.getAppAccountBy(sourceId, typeId);
+                appAccountTo = currentAppAcc;
+            }
+            try {
+                accountBC.createRelation(appAccountFrom, appAccountTo);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }*/
+//        modelAndView.addObject("person", person);
+//        modelAndView.setViewName("redirect:/viewPerson/id/" + person.getId());
+//        return modelAndView;
+//    }
 
     @PostMapping("editPerson")
     public ModelAndView createPerson(@Valid Person person, BindingResult result) {
@@ -105,28 +141,36 @@ public class PersonController {
 
     @Secured("ADMIN")
     @GetMapping("/editPerson/delete/id/{id}")
-    public String delete(@PathVariable Long id, ModelAndView modelAndView) {
+    public ModelAndView delete(@PathVariable Long id, ModelAndView modelAndView) {
         Person person;
-        if (personService.existPerson(id))
+        if (personService.existEntry(id)) {
+            if (userToPersonRepository.existsUserToPersonByPersonId(id)){
+                UserToPerson userToPerson=userToPersonRepository.getUserToPersonByPersonId(id);
+                if (userService.existEntry(userToPerson.getUserId())){
+                    userService.delete(userToPerson.getUserId());
+                }
+            }
             personService.delete(id);
-
-        return "redirect:/welcome";
+            modelAndView.setViewName("redirect:/welcome");
+        }
+        return modelAndView;
 
     }
 
     @PostMapping(Pages.VIEW_WELCOME)
-    public String newPerson(@Valid Person person, BindingResult bindingResult, ModelAndView modelAndView) {
+    public ModelAndView newPerson(@Valid Person person, BindingResult bindingResult, ModelAndView modelAndView) {
         modelAndView.setViewName("welcome");
         personService.saveOrUpdate(person);
         modelAndView.addObject("successMessage", "Person " + person.getFirstName() + " " + person.getLastName() + "has been saved successfully");
-        return "redirect:/welcome";
+        modelAndView.setViewName("redirect:/welcome");
+        return modelAndView;
     }
 
     @GetMapping("/viewPerson/id/{id}/addCild")
     public ModelAndView addCild(@PathVariable Long id, Long type, ModelAndView modelAndView) {
-        if (personService.existPerson(id)) {
-            modelAndView.addObject("source", personService.getById(id));
-            modelAndView.addObject("type", AppAccountTypes.CILD);
+        if (personService.existEntry(id)) {
+            modelAndView.addObject("sourceId", id.intValue());
+            modelAndView.addObject("typeId", AppAccountTypes.CILD);
             modelAndView.setViewName("redirect:/editPerson/id/0");
 
         } else

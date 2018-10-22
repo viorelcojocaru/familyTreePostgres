@@ -8,8 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "user_to_person", schema="public")
-@AllArgsConstructor
+@Table(name = "user_to_person")
 public class UserToPerson implements Serializable {
     @Id
     @Column(name = "user_id")

@@ -17,8 +17,8 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "person", schema = "public")
-@ToString(exclude = "contact")
-@EqualsAndHashCode(exclude = "contact")
+@ToString(exclude = {"contact","appAccount"})
+@EqualsAndHashCode(exclude = {"contact","appAccount"})
 public class Person implements Serializable {
 
     @Id

@@ -68,5 +68,4 @@ public class UserService implements UserServiceIntf {
     public User findUserByUserName(String userName) {
         return userRepository.findUserByUserName(userName);
     }
-
 }

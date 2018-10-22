@@ -59,7 +59,7 @@ public class PersonRestController {
     @ResponseStatus(HttpStatus.OK)
     public PersonDto updatePost(@RequestBody
             PersonDto personDto) throws ParseException {
-        if (!personService.existPerson(personDto.getId()))
+        if (!personService.existEntry(personDto.getId()))
             new ResourceNotFoundException("No post found with id=" + personDto.getId());
         Person person=convertToEntity(personDto);
         Person personUpdated=personService.saveOrUpdate(person);

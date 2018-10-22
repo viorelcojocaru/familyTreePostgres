@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "user_to_role")
-@NoArgsConstructor
+
 public class UserToRole implements Serializable {
     @Id
     @Column(name = "user_id")

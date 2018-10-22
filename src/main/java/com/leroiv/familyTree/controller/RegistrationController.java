@@ -6,7 +6,7 @@ import com.leroiv.familyTree.constants.Pages;
 import com.leroiv.familyTree.domain.AppAccountType;
 import com.leroiv.familyTree.domain.Person;
 import com.leroiv.familyTree.domain.User;
-import com.leroiv.familyTree.repository.AppAccountTypeRepository;
+import com.leroiv.familyTree.service.AppAccountService;
 import com.leroiv.familyTree.service.AppAccountTypeService;
 import com.leroiv.familyTree.service.PersonService;
 import com.leroiv.familyTree.service.UserService;
@@ -28,6 +28,8 @@ public class RegistrationController {
     private final UserService userService;
     private final PersonService personService;
     private final AppAccountTypeService appAccountTypeService;
+    private final AppAccountService appAccountService;
+    private final AccountBC accountBC;
 
     @GetMapping(Pages.VIEW_REGISTRATION)
     public ModelAndView registration(ModelAndView modelAndView) {
@@ -61,7 +63,7 @@ public class RegistrationController {
                 userService.delete(user.getId());
             throw new Exception("Error on get appAccountTyepe");
         }
-        AccountBC.getInstance().createAppAccount(person, appAccountType);
+        appAccountService.saveOrUpdate(accountBC.createAppAccount(person, appAccountType));
         return "redirect:/login";
     }
 

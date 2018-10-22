@@ -10,25 +10,26 @@ import com.leroiv.familyTree.service.AppAccountService;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Service()
 public class AccountBC {
-    private static AccountBC instance;
-
-    private AccountBC() {
-    }
-
-    public synchronized static AccountBC getInstance() {
-        if (instance != null)
-            return new AccountBC();
-        return instance;
-    }
+//    private static AccountBC instance;
+//
+//    private AccountBC() {
+//    }
+//
+//    public synchronized static AccountBC getInstance() {
+//        if (instance != null)
+//            return new AccountBC();
+//        return instance;
+//    }
 
     public AppAccount createAppAccount(Person person, AppAccountType appAccountType) {
         AppAccount appAccount;
-        appAccount = AppAccount.builder().person(person).name("AppAccount_" + appAccountType.getName()).type(appAccountType).build();
+        appAccount = AppAccount.builder().person(person).name("AppAccount_"+person.getFirstName()+"_"+person.getLastName() +"_"+ appAccountType.getName()).type(appAccountType).build();
         return appAccount;
     }
 

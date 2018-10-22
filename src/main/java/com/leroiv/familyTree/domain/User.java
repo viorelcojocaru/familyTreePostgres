@@ -39,7 +39,7 @@ public class User implements Serializable {
     private Integer failedLoginAttempts = 0;
 
     @OneToOne
-    @JoinTable(name = "person_to_user",
+    @JoinTable(name = "user_to_person",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "person_id")})
     private Person userToPerson = new Person();

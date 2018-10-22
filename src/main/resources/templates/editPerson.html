@@ -38,6 +38,7 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
                               th:object="${person}"
                               method="post" role="form">
                             <input id="id" type="text" th:field="*{id}" hidden="true"/>
+
                             <table class="formTable">
                                 <tr>
                                     <td>
@@ -99,7 +100,6 @@ extras/spring-security" xmlns="http://www.w3.org/1999/html">
                               th:object="${contact}" method="post" role="form">
                             <input th:field="*{id}" hidden="true"/>
                             <input th:field="*{person}" hidden="true"/>
-                            <input th:field="*{source}" hidden="true"/>
                             <table class="formTable">
                                 <tr>
                                     <td>

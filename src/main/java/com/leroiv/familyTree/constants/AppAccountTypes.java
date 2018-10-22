@@ -3,7 +3,7 @@ package com.leroiv.familyTree.constants;
 public class AppAccountTypes {
 
     public final static long
-            ROOT = 1,
+            ROOT = 70,
             CILD = 10,
             PARTNER = 20,
             EX_PARTNER = 30,

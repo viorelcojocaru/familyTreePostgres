@@ -1,33 +1,20 @@
 package com.leroiv.familyTree.domain;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity(name = "familyTree")
+@Entity
 @Table(name = "app_account_type")
 @RequiredArgsConstructor
+@Data
 public class AppAccountType {
 
-    private String name;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
+    private String name;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
